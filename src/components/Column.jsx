@@ -1,52 +1,71 @@
 import Card from "./Card.jsx";
+import { CardList } from "./data.js";
 
 const Column = () => {
+  // Функция для получения карточек по статусу
+  const getCardsByStatus = (status) => {
+    return CardList.filter(card => card.status === status);
+  };
+
   return (
-    <div class="main__content">
-      <div class="main__column column">
-        <div class="column__title">
+    <div className="main__content">
+      {/* Столбец "Без статуса" */}
+      <div className="main__column column">
+        <div className="column__title">
           <p>Без статуса</p>
         </div>
-        <div class="cards">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        <div className="cards">
+          {getCardsByStatus("Без статуса").map(card => (
+            <Card key={card.id} {...card} />
+          ))}
         </div>
       </div>
-      <div class="main__column">
-        <div class="column__title">
+
+      {/* Столбец "Нужно сделать" */}
+      <div className="main__column">
+        <div className="column__title">
           <p>Нужно сделать</p>
         </div>
-        <div class="cards">
-          <Card />
+        <div className="cards">
+          {getCardsByStatus("Нужно сделать").map(card => (
+            <Card key={card.id} {...card} />
+          ))}
         </div>
       </div>
-      <div class="main__column">
-        <div class="column__title">
+
+      {/* Столбец "В работе" */}
+      <div className="main__column">
+        <div className="column__title">
           <p>В работе</p>
         </div>
-        <div class="cards">
-          <Card />
-          <Card />
-          <Card />
+        <div className="cards">
+          {getCardsByStatus("В работе").map(card => (
+            <Card key={card.id} {...card} />
+          ))}
         </div>
       </div>
-      <div class="main__column">
-        <div class="column__title">
+
+      {/* Столбец "Тестирование" */}
+      <div className="main__column">
+        <div className="column__title">
           <p>Тестирование</p>
         </div>
-        <div class="cards">
-          <Card />
+        <div className="cards">
+          {getCardsByStatus("Тестирование").map(card => (
+            <Card key={card.id} {...card} />
+          ))}
         </div>
       </div>
-      <div class="main__column">
-        <div class="column__title">
+
+      {/* Столбец "Готово" */}
+      <div className="main__column">
+        <div className="column__title">
           <p>Готово</p>
         </div>
-        <div class="cards">
-          <Card />
+        <div className="cards">
+          {getCardsByStatus("Готово").map(card => (
+            <Card key={card.id} {...card} />
+          ))}
         </div>
       </div>
     </div>
@@ -54,3 +73,4 @@ const Column = () => {
 };
 
 export default Column;
+

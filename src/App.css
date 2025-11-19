@@ -307,6 +307,7 @@ body {
 .pop-user-set__theme input:checked[type=checkbox]::before {
   left: 12px;
 }
+
 .pop-user-set button {
   width: 72px;
   height: 30px;
@@ -315,6 +316,7 @@ body {
   border-radius: 4px;
   border: 1px solid #565EEF;
 }
+
 .pop-user-set button a {
   color: #565EEF;
 }
@@ -820,7 +822,7 @@ body {
   padding: 0;
 }
 .header__pop-user-set {
-  display: none;
+  display: block;
   position: absolute;
   top: 61px;
   right: 0;
@@ -1129,4 +1131,12 @@ body {
   .pop-exit__form-group {
     display: block;
   }
+}
+
+.loading-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  text-align: center;
 }
