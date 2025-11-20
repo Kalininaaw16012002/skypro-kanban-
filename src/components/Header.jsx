@@ -4,8 +4,8 @@ import { useState } from "react";
 const Header = () => {
   const [showPopUser, setShowPopUser] = useState(false);
 
-  const handleUserClick = () => {
-    setShowPopUser(true);
+   const handleUserClick = () => {
+    setShowPopUser(prev => !prev); // переключает состояние
   };
 
   const handleClosePopUser = () => {
@@ -30,13 +30,13 @@ const Header = () => {
             <button className="header__btn-main-new _hover01" id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
             </button>
-            <button
-              className="header__btn-main-new _hover02"
+            <a href="#user-set-target" 
+              className="header__user _hover02"
               onClick={handleUserClick}
               style={{ cursor: "pointer" }}
             >
               Ivan Ivanov
-            </button>
+            </a>
             {showPopUser && <PopUser onClose={handleClosePopUser} />}
           </nav>
         </div>
