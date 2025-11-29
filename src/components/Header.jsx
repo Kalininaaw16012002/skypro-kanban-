@@ -30,7 +30,7 @@ const Header = () => {
             <button className="header__btn-main-new _hover01" id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
             </button>
-            <a href="#user-set-target" 
+            <a href="#" 
               className="header__user _hover02"
               onClick={handleUserClick}
               style={{ cursor: "pointer" }}
