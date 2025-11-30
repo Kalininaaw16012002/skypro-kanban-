@@ -11,6 +11,11 @@ export const SContainer = styled.div `
   width: 100%;
   margin: 0 auto;
   padding: 0 30px;
+
+  @media screen and (max-width: 495px) {
+    width: 100%;
+    padding: 0 16px;
+  }
 `;
 
 export const SHeaderBlock = styled.div `
@@ -60,6 +65,22 @@ export const SHeaderButtonMainNew = styled.button`
   & a {
     color: #FFFFFF;
   }
+
+  &._hover01:hover {
+  background-color: #33399b;
+}
+
+@media screen and (max-width: 495px) {
+    z-index: 3;
+    position: fixed;
+    left: 16px;
+    bottom: 30px;
+    top: auto;
+    width: calc(100vw - 32px);
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 0;
+  }
 `;
 
 export const SHeaderUser = styled.div`
@@ -71,6 +92,24 @@ export const SHeaderUser = styled.div`
   line-height: 20px;
   color: #565EEF;
   cursor: pointer;
+
+  &._hover02:hover:hover {
+  color: #33399b;
+  }
+
+  &:hover{
+    color: #33399b;
+  }
+
+  &._hover02:hover::after {
+  border-left-color: #33399b;
+  border-bottom-color: #33399b;
+  }
+
+  &:hover::after{
+    border-left-color: #33399b;
+    border-bottom-color: #33399b;
+  }
 
   &::after {
     content: "";

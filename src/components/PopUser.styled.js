@@ -86,8 +86,17 @@ export const SPopUserButton = styled.button`
   color: #565EEF;
   border-radius: 4px;
   border: 1px solid #565EEF;
+
+  &._hover03:hover {
+  color: #FFFFFF;
+  background-color: #33399b;
+}
 `;
 
 export const SPopUserButtonDirect = styled.a`
-  color: #565EEF;
+  color: #565EEF; 
+
+  &:hover {
+    color: #FFFFFF;
+  }
 `;

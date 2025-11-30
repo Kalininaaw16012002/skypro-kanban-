@@ -58,6 +58,10 @@ export const SCalendarDaysName = styled.div`
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
+
+  @media screen and (max-width: 660px) {
+    font-size: 14px;
+  }
 `;
 
 export const SCalendarCells = styled.div`
@@ -65,6 +69,14 @@ export const SCalendarCells = styled.div`
   height: 126px;
   display: flex;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 660px) {
+    width: 344px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 `;
 
 export const SCalendarCell = styled.div`
@@ -99,6 +111,12 @@ export const SCalendarCell = styled.div`
 &._current {
   font-weight: 700;
 }
+
+@media screen and (max-width: 660px) {
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+  }
 `;
 
 export const SCalendarPeriod = styled.div`

@@ -46,6 +46,10 @@ export const SPopExitBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #D4DBE5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+
+  @media only screen and (max-width: 375px) {
+    padding: 50px 20px;
+  }
 `;
 
 export const SPopExitTtl = styled.h2`
@@ -62,6 +66,10 @@ export const SPopExitFormGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media only screen and (max-width: 375px) {
+    display: block;
+  }
 `;
 
 export const SPopExitYes = styled.button`
@@ -80,6 +88,17 @@ export const SPopExitYes = styled.button`
   letter-spacing: -0.14px;
   color: #FFFFFF;
   margin-right: 10px;
+
+  &._hover01:hover {
+  background-color: #33399b;
+}
+
+@media only screen and (max-width: 375px) {
+    width: 100%;
+    height: 40px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 `;
 
 export const SPopExitYesA = styled.a`
@@ -106,6 +125,16 @@ export const SPopExitNo = styled.button`
   font-weight: 500;
   letter-spacing: -0.14px;
   color: #FFFFFF;
+
+  &._hover03:hover {
+  background-color: #33399b;
+  color: #FFFFFF;
+}
+
+@media only screen and (max-width: 375px) {
+    width: 100%;
+    height: 40px;
+  }
 `;
 
 export const SPopExitNoA = styled.a`
@@ -115,4 +144,8 @@ export const SPopExitNoA = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover{
+  color: #FFFFFF;
+}
 `;

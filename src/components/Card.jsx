@@ -1,13 +1,14 @@
-import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsTitle } from "./Card.styled";
+import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
+import { colorStyles } from "./data";
 
 export const Card = ({ theme, colorClass, title, date }) => {
   return (
     <SCardsItem>
       <SCardsCard className="card">
         <SCardsGroup>
-          <div className={`card__theme ${colorClass}`}>
-            <p className="">{theme}</p>
-          </div>
+          <SCardsTheme style={colorStyles[colorClass]}>
+            <SCardsText>{theme}</SCardsText>
+          </SCardsTheme>
           <a href="#popBrowse" target="_self">
             <SCardsBtn>
               <SCardsPoint></SCardsPoint>
