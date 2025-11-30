@@ -1,4 +1,5 @@
 import Card from "./Card.jsx";
+import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainContent } from "./Column.styled.js";
 import { CardList } from "./data.js";
 
 const Column = () => {
@@ -8,67 +9,67 @@ const Column = () => {
   };
 
   return (
-    <div className="main__content">
+    <SMainContent>
       {/* Столбец "Без статуса" */}
-      <div className="main__column column">
-        <div className="column__title">
-          <p>Без статуса</p>
-        </div>
-        <div className="cards">
+      <SMainColumn className="column">
+        <SMainColumnTitle>
+          <SMainColumnTitleText>Без статуса</SMainColumnTitleText>
+        </SMainColumnTitle>
+        <SMainCards>
           {getCardsByStatus("Без статуса").map(card => (
             <Card key={card.id} {...card} />
           ))}
-        </div>
-      </div>
+        </SMainCards>
+      </SMainColumn>
 
       {/* Столбец "Нужно сделать" */}
-      <div className="main__column">
-        <div className="column__title">
-          <p>Нужно сделать</p>
-        </div>
-        <div className="cards">
+      <SMainColumn className="column">
+        <SMainColumnTitle>
+          <SMainColumnTitleText>Нужно сделать</SMainColumnTitleText>
+        </SMainColumnTitle>
+        <SMainCards>
           {getCardsByStatus("Нужно сделать").map(card => (
             <Card key={card.id} {...card} />
           ))}
-        </div>
-      </div>
+        </SMainCards>
+      </SMainColumn>
 
       {/* Столбец "В работе" */}
-      <div className="main__column">
-        <div className="column__title">
-          <p>В работе</p>
-        </div>
-        <div className="cards">
+      <SMainColumn className="column">
+        <SMainColumnTitle>
+          <SMainColumnTitleText>В работе</SMainColumnTitleText>
+        </SMainColumnTitle>
+        <SMainCards>
           {getCardsByStatus("В работе").map(card => (
             <Card key={card.id} {...card} />
           ))}
-        </div>
-      </div>
+        </SMainCards>
+      </SMainColumn>
 
       {/* Столбец "Тестирование" */}
-      <div className="main__column">
-        <div className="column__title">
-          <p>Тестирование</p>
-        </div>
-        <div className="cards">
+      <SMainColumn>
+        <SMainColumnTitle>
+          <SMainColumnTitleText>Тестирование</SMainColumnTitleText>
+        </SMainColumnTitle>
+        <SMainCards>
           {getCardsByStatus("Тестирование").map(card => (
             <Card key={card.id} {...card} />
           ))}
-        </div>
-      </div>
+        </SMainCards>
+      </SMainColumn>
 
       {/* Столбец "Готово" */}
-      <div className="main__column">
-        <div className="column__title">
-          <p>Готово</p>
-        </div>
-        <div className="cards">
+      <SMainColumn>
+        <SMainColumnTitle>
+          <SMainColumnTitleText>Готово</SMainColumnTitleText>
+        </SMainColumnTitle>
+        <SMainCards>
           {getCardsByStatus("Готово").map(card => (
             <Card key={card.id} {...card} />
           ))}
-        </div>
-      </div>
-    </div>
+        </SMainCards>
+      </SMainColumn>
+    </SMainContent>
   );
 };
 

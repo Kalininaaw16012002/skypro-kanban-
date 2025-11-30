@@ -1,16 +1,18 @@
+import { SPopUserButton, SPopUserButtonDirect, SPopUserCheckbox, SPopUserSet, SPopUserSetMail, SPopUserSetName, SPopUserSetTheme, SPopUserSetThemeText } from "./PopUser.styled";
+
 const PopUser = ({}) => {
   return (
-    <div className="header__pop-user-set pop-user-set" id="user-set-target"> 
-      <p className="pop-user-set__name">Ivan Ivanov</p>
-      <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-      <div className="pop-user-set__theme">
-        <p>Темная тема</p>
-        <input type="checkbox" className="checkbox" name="checkbox"></input>
-      </div>
-      <button type="button" className="_hover03">
-        <a href="#popExit">Выйти</a>
-      </button>
-    </div>
+    <SPopUserSet className="pop-user-set" id="user-set-target"> 
+      <SPopUserSetName>Ivan Ivanov</SPopUserSetName>
+      <SPopUserSetMail>ivan.ivanov@gmail.com</SPopUserSetMail>
+      <SPopUserSetTheme>
+        <SPopUserSetThemeText>Темная тема</SPopUserSetThemeText>
+        <SPopUserCheckbox type="checkbox" name="checkbox"></SPopUserCheckbox>
+      </SPopUserSetTheme>
+      <SPopUserButton type="button" className="_hover03">
+        <SPopUserButtonDirect href="#popExit">Выйти</SPopUserButtonDirect>
+      </SPopUserButton>
+    </SPopUserSet>
   );
 };
 

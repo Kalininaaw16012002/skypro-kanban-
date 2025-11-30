@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Column from "./Column.jsx";
+import { SMain, SMainBlock, SMainLoading } from "./Main.styled.js";
+import { SContainer } from "./Header.styled.js";
 
 
 const Main = () => {
@@ -13,17 +15,17 @@ const Main = () => {
   }, []);
 
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
+    <SMain>
+      <SContainer>
+        <SMainBlock>
           {isLoading ? (
-            <div className="loading-text">Данные загружаются</div>
+            <SMainLoading>Данные загружаются</SMainLoading>
           ) : (
             <Column />
           )}
-        </div>
-      </div>
-    </main>
+        </SMainBlock>
+      </SContainer>
+    </SMain>
   );
 };
 
