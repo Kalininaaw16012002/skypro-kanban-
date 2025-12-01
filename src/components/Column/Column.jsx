@@ -1,6 +1,6 @@
-import Card from "./Card.jsx";
-import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainContent } from "./Column.styled.js";
-import { CardList } from "./data.js";
+import Card from "../Card/Card.jsx";
+import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainContent } from "../Column/Column.styled.js";
+import { CardList } from "../../data.js";
 
 const Column = () => {
   // Функция для получения карточек по статусу

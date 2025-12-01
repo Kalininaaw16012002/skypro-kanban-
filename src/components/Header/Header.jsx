@@ -1,5 +1,5 @@
 import { SContainer, SHeader, SHeaderBlock, SHeaderNav, SHeaderLogo, SHeaderLogoDark, SHeaderButtonMainNew, SHeaderUser } from "./Header.styled.js";
-import PopUser from "./PopUser.jsx";
+import PopUser from "../PopUser/PopUser.jsx";
 import { useState } from "react";
 
 const Header = () => {

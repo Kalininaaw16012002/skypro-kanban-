@@ -2,11 +2,13 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Header from './components/Header.jsx'
-import PopNewCard from './components/PopNewCard.jsx'
-import PopBrowse from './components/PopBrowse.jsx'
-import Main from './components/Main.jsx'
+import Header from './components/Header/Header.jsx'
+import PopNewCard from './components/PopNewCard/PopNewCard.jsx'
+import PopBrowse from './components/PopBrowse/PopBrowse.jsx'
+import Main from './components/Main/Main.jsx'
 import { SPopExit, SPopExitBlock, SPopExitContainer, SPopExitFormGroup, SPopExitNo, SPopExitNoA, SPopExitTtl, SPopExitYes, SPopExitYesA, SWrapper } from './App.styled.js'
+
+
 
 function App() {
   const [count, setCount] = useState(0)

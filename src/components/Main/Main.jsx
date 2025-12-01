@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Column from "./Column.jsx";
-import { SMain, SMainBlock, SMainLoading } from "./Main.styled.js";
-import { SContainer } from "./Header.styled.js";
+import Column from "../Column/Column.jsx";
+import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
+import { SContainer } from "../Header/Header.styled.js";
 
 
 const Main = () => {

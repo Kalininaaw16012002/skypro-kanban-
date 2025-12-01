@@ -1,5 +1,5 @@
 import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
-import { colorStyles } from "./data";
+import { colorStyles } from "../../data";
 
 export const Card = ({ theme, colorClass, title, date }) => {
   return (

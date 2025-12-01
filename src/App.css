@@ -65,6 +65,26 @@ ul li {
   list-style: none;
 }
 
+._orange {
+  background-color: #FFE4C2;
+  color: #FF6D00;
+}
+
+._green {
+  background-color: #B4FDD1;
+  color: #06B16E;
+}
+
+._purple {
+  background-color: #E9D4FF;
+  color: #9A48F1;
+}
+
+._gray {
+  background: #94A6BE;
+  color: #FFFFFF;
+}
+
 html,
 body {
   width: 100%;
@@ -169,6 +189,7 @@ body {
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  font-family: "Roboto";
 }
 .form-new__input::-moz-placeholder, .form-new__area::-moz-placeholder {
   font-weight: 400;
