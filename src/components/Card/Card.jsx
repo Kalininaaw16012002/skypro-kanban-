@@ -1,26 +1,29 @@
+import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
+import { colorStyles } from "../../data";
+
 export const Card = ({ theme, colorClass, title, date }) => {
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
-          <div className={`card__theme ${colorClass}`}>
-            <p className="">{theme}</p>
-          </div>
+    <SCardsItem>
+      <SCardsCard className="card">
+        <SCardsGroup>
+          <SCardsTheme style={colorStyles[colorClass]}>
+            <SCardsText>{theme}</SCardsText>
+          </SCardsTheme>
           <a href="#popBrowse" target="_self">
-            <div className="card__btn">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <SCardsBtn>
+              <SCardsPoint></SCardsPoint>
+              <SCardsPoint></SCardsPoint>
+              <SCardsPoint></SCardsPoint>
+            </SCardsBtn>
           </a>
-        </div>
-        <div className="card__content">
+        </SCardsGroup>
+        <SCardsContent>
           <a href="" target="_blank">
-            <h3 className="card__title">{title}</h3>
+            <SCardsTitle>{title}</SCardsTitle>
           </a>
-          <div className="card__date">
+          <SCardsDate>
             {/* SVG и дата */}
-            <svg
+            <SCardsDateSvg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
               height="13"
@@ -47,12 +50,12 @@ export const Card = ({ theme, colorClass, title, date }) => {
                   <rect width="13" height="13" fill="white" />
                 </clipPath>
               </defs>
-            </svg>
-            <p>{date}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+            </SCardsDateSvg>
+            <SCardsDateText>{date}</SCardsDateText>
+          </SCardsDate>
+        </SCardsContent>
+      </SCardsCard>
+    </SCardsItem>
   );
 };
 
