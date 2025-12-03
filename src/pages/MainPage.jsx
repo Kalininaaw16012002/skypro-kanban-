@@ -5,9 +5,15 @@ import Header from '../components/Header/Header.jsx'
 import PopNewCard from '../components/PopNewCard/PopNewCard.jsx'
 import PopBrowse from '../components/PopBrowse/PopBrowse.jsx'
 import { SPopExit, SPopExitBlock, SPopExitContainer, SPopExitFormGroup, SPopExitNo, SPopExitNoA, SPopExitTtl, SPopExitYes, SPopExitYesA, SWrapper } from '../App.styled.js'
+import { useNavigate } from 'react-router-dom';
 
-function MainPage() {
-  const [count, setCount] = useState(0)
+function MainPage({ setIsAuth, loading }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsAuth(false);
+    navigate('/sign-in');
+  };
 
   return (
     <>
@@ -20,7 +26,7 @@ function MainPage() {
 						</div>
 						<form  id="formExit" action="#">
 							<SPopExitFormGroup>
-								<SPopExitYes className="_hover01" id="exitYes"><SPopExitYesA href="modal/signin.html">Да, выйти</SPopExitYesA> </SPopExitYes>
+								<SPopExitYes className="_hover01" id="exitYes"><SPopExitYesA onClick={handleLogout}>Да, выйти</SPopExitYesA></SPopExitYes>
 								<SPopExitNo className="_hover03" id="exitNo"><SPopExitNoA href="main.html">Нет, остаться</SPopExitNoA> </SPopExitNo>
 							</SPopExitFormGroup>
 						</form>

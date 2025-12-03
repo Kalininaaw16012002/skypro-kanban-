@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from '../pages/MainPage';
 import EditTaskPage from '../pages/EditTaskPage';
 import AddTaskPage from '../pages/AddTaskPage';
-import ExitPage from '../pages/ExitPage';
 import NotFound from '../pages/NotFound';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
@@ -25,12 +24,12 @@ function AppRoutes() {
         <Route path="/" element={<MainPage loading={loading}/>} />     
         <Route path="/add-task" element={<AddTaskPage />} />
         <Route path="/edit-task/:id" element={<EditTaskPage />} />
-        <Route path="/exit" element={<ExitPage />} />
+        <Route path="/exit" element={<MainPage setIsAuth={setIsAuth} loading={loading} />} />
     </Route>
 
       <Route path="/sign-in" element={<LoginPage setIsAuth = {setIsAuth}/>} />
       <Route path="/sign-up" element={<RegisterPage />} />
-      {/* <Route path="*" element={<NotFound />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

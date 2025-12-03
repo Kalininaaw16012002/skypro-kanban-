@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import BaseButton from "./Button";
 import BaseInput from "./Input";
+import { SBg, SFormGroup, SFormGroupP, SInputWrapper, SModal, STitle, SWrapper } from "./AuthForm.styled";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
   const navigate = useNavigate();
@@ -10,13 +11,12 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
     navigate("/");
   };
   return (
-    <div className="bg">
-      <div className="modal">
-        <div className="logo">SkyWords</div>
-        <div className="wrapper">
-          <h2 className="title">{isSignUp ? "Регистрация" : "Вход"}</h2>
+    <SBg>
+      <SModal>
+        <SWrapper>
+          <STitle>{isSignUp ? "Регистрация" : "Вход"}</STitle>
           <form className="form" id="form" action="#">
-            <div className="input-wrapper">
+            <SInputWrapper>
               {isSignUp && (
                 <BaseInput
                   tag="input"
@@ -42,7 +42,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                 id="formpassword"
                 placeholder="Пароль"
               />
-            </div>
+            </SInputWrapper>
 
             <BaseButton
               onClick={handleLogin}
@@ -53,22 +53,22 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
             />
 
             {!isSignUp && (
-              <div className="form-group">
-                <p>Нужно зарегистрироваться?</p>
-                <Link to="/sign-up">Регистрируйтесь здесь</Link>
-              </div>
+              <SFormGroup>
+                <SFormGroupP>Нужно зарегистрироваться?</SFormGroupP>
+                <Link to="/sign-up" style={{ color: "#94a6be66", fontSize: "14px"}}>Регистрируйтесь здесь</Link>
+              </SFormGroup>
             )}
             {isSignUp && (
-              <div className="form-group">
-                <p>
-                  Уже есть аккаунт? <Link to="/sign-in">Войдите здесь</Link>
-                </p>
-              </div>
+              <SFormGroup>
+                <SFormGroupP>
+                  Уже есть аккаунт? <Link to="/sign-in" style={{ color: "#94a6be66"}}>Войдите здесь</Link>
+                </SFormGroupP>
+              </SFormGroup>
             )}
           </form>
-        </div>
-      </div>
-    </div>
+        </SWrapper>
+      </SModal>
+    </SBg>
   );
 };
 

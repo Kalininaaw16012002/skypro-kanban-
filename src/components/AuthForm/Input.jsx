@@ -4,33 +4,30 @@ import styled from "styled-components";
 const StyledInput = styled.input`
   width: 100%;
   outline: none;
-  padding: 10px;
+  padding: 8px 10px 8px 10px;
   background-color: white;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
+  box-sizing: border-box;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border-radius: 8px;
+  font-size: 14px;
 
   &::placeholder {
-    color: #999999;
+    color: rgba(148, 166, 190, 1);
   }
-
-  ${({ $error }) => $error && `outline: 0.7px solid red;`}
 `;
 
 const StyledTextarea = styled.textarea`
-  width: 100%;
-  outline: none;
-  padding: 10px;
-  background-color: white;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
+  color: rgba(148, 166, 190, 1);
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -2%;
+  text-align: left;
 
   &::placeholder {
-    color: #999999;
+    color: rgba(148, 166, 190, 1);
   }
-
-  ${({ $error }) => $error && `outline: 0.7px solid red;`}
 `;
 
 const BaseInput = ({

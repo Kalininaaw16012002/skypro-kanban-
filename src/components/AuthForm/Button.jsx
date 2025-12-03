@@ -1,21 +1,21 @@
 import styled from "styled-components";
 
-//окончательный вариант
 const colors = {
-  primary: "#D5FF42",
-  secondary: "#101010",
-  tertiary: "#F3F3F3",
+  primary: "#94A6BE",
+  secondary: "#565eefff",
+  tertiary: "#ffffff",
 };
 
 const SButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  margin-top: 20px;
   height: 40px;
   padding: 0 19px;
-  border-radius: 50px;
-  border: 1px solid #101010;
+  border-radius: 4px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  font-size: 14px;
 
   &:disabled {
     background-color: #d9d9d9;
@@ -33,7 +33,7 @@ const TextButton = styled(SButton)`
 const IconButton = styled(SButton)`
   width: 40px;
   border-radius: 50%;
-  background-color: #101010;
+  border-color: #565eef;;
 `;
 
 const Button = ({
