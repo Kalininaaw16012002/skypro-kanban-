@@ -1,18 +1,72 @@
-import { SPopUserButton, SPopUserButtonDirect, SPopUserCheckbox, SPopUserSet, SPopUserSetMail, SPopUserSetName, SPopUserSetTheme, SPopUserSetThemeText } from "./PopUser.styled";
+import { useNavigate } from "react-router-dom";
+import { SPopExit, SPopExitBlock, SPopExitContainer, SPopExitFormGroup, SPopExitNo, SPopExitNoA, SPopExitTtl, SPopExitYes, SPopExitYesA, SPopUserButton, SPopUserButtonDirect, SPopUserCheckbox, SPopUserSet, SPopUserSetMail, SPopUserSetName, SPopUserSetTheme, SPopUserSetThemeText } from "./PopUser.styled";
+import { useState } from "react";
 
-const PopUser = ({}) => {
+const PopUser = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate(); 
+
+  const handleLogout = () => {
+    navigate('/sign-in'); 
+  };
+
   return (
-    <SPopUserSet className="pop-user-set" id="user-set-target"> 
-      <SPopUserSetName>Ivan Ivanov</SPopUserSetName>
-      <SPopUserSetMail>ivan.ivanov@gmail.com</SPopUserSetMail>
-      <SPopUserSetTheme>
-        <SPopUserSetThemeText>Темная тема</SPopUserSetThemeText>
-        <SPopUserCheckbox type="checkbox" name="checkbox"></SPopUserCheckbox>
-      </SPopUserSetTheme>
-      <SPopUserButton type="button" className="_hover03">
-        <SPopUserButtonDirect href="#popExit">Выйти</SPopUserButtonDirect>
-      </SPopUserButton>
-    </SPopUserSet>
+    <>
+      <SPopUserSet className="pop-user-set" id="user-set-target">
+        <SPopUserSetName>Ivan Ivanov</SPopUserSetName>
+        <SPopUserSetMail>ivan.ivanov@gmail.com</SPopUserSetMail>
+        <SPopUserSetTheme>
+          <SPopUserSetThemeText>Темная тема</SPopUserSetThemeText>
+          <SPopUserCheckbox type="checkbox" name="checkbox" />
+        </SPopUserSetTheme>
+        <SPopUserButton type="button" className="_hover03">
+          <SPopUserButtonDirect
+            onClick={(e) => {
+              e.preventDefault();
+              setModalOpen(true);
+            }}
+          >
+            Выйти
+          </SPopUserButtonDirect>
+        </SPopUserButton>
+      </SPopUserSet>
+
+      {isModalOpen && (
+        <SPopExit id="popExit">
+          <SPopExitContainer>
+            <SPopExitBlock>
+              <div>
+                <SPopExitTtl>Выйти из аккаунта?</SPopExitTtl>
+              </div>
+              <form id="formExit" action="#">
+                <SPopExitFormGroup>
+                  <SPopExitYes className="_hover01" id="exitYes">
+                    <SPopExitYesA
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLogout();
+                      }}
+                    >
+                      Да, выйти
+                    </SPopExitYesA>
+                  </SPopExitYes>
+                  <SPopExitNo className="_hover03" id="exitNo">
+                    <SPopExitNoA
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setModalOpen(false);
+                      }}
+                    >
+                      Нет, остаться
+                    </SPopExitNoA>
+                  </SPopExitNo>
+                </SPopExitFormGroup>
+              </form>
+            </SPopExitBlock>
+          </SPopExitContainer>
+        </SPopExit>
+      )}
+    </>
   );
 };
 

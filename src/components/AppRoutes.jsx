@@ -7,6 +7,7 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import PrivateRoute from './PrivateRoute';
 import { useEffect, useState } from 'react';
+import ExitPage from '../pages/ExitPage';
 
 
 function AppRoutes() {
@@ -24,7 +25,7 @@ function AppRoutes() {
         <Route path="/" element={<MainPage loading={loading}/>} />     
         <Route path="/add-task" element={<AddTaskPage />} />
         <Route path="/edit-task/:id" element={<EditTaskPage />} />
-        <Route path="/exit" element={<MainPage setIsAuth={setIsAuth} loading={loading} />} />
+        <Route path="/exit/:action" element={<ExitPage setIsAuth={setIsAuth} />} />
     </Route>
 
       <Route path="/sign-in" element={<LoginPage setIsAuth = {setIsAuth}/>} />

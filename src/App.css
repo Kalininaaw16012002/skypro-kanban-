@@ -93,10 +93,6 @@ body {
   color: #000000;
 }
 
-.pop-new-card:target,
-.pop-browse:target {
-  display: block;
-}
 
 ._active-category {
   opacity: 1 !important;

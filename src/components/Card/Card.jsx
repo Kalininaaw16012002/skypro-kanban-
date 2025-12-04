@@ -1,7 +1,8 @@
 import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
-import { colorStyles } from "../../data";
+import { CardList, colorStyles } from "../../data";
+import { Link } from "react-router-dom";
 
-export const Card = ({ theme, colorClass, title, date }) => {
+export const Card = ({ id, theme, colorClass, title, date }) => {
   return (
     <SCardsItem>
       <SCardsCard className="card">
@@ -9,13 +10,13 @@ export const Card = ({ theme, colorClass, title, date }) => {
           <SCardsTheme style={colorStyles[colorClass]}>
             <SCardsText>{theme}</SCardsText>
           </SCardsTheme>
-          <a href="#popBrowse" target="_self">
+          <Link to={`/edit-task/${id}`}>
             <SCardsBtn>
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
             </SCardsBtn>
-          </a>
+          </Link>
         </SCardsGroup>
         <SCardsContent>
           <a href="" target="_blank">

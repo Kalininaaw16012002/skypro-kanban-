@@ -1,6 +1,21 @@
+import { useEffect, useState } from "react";
 import Calendar from "../Calendar/Calendar.jsx";
 
-const PopBrowse = () => {
+const PopBrowse = ({ task }) => {
+  if (!task) return null; 
+  // Можно добавить локальное состояние, чтобы отслеживать загрузку
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (task && Object.keys(task).length > 0) {
+      setLoading(false);
+    }
+  }, [task]);
+
+  if (loading) {
+    return <div>Загрузка задачи...</div>;
+  }
+
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
@@ -9,7 +24,7 @@ const PopBrowse = () => {
             <div className="pop-browse__top-block">
               <h3 className="pop-browse__ttl">Название задачи</h3>
               <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
+                <p className="_orange">{task.title || 'Без названия'}</p>
               </div>
             </div>
             <div className="pop-browse__status status">
@@ -39,7 +54,7 @@ const PopBrowse = () => {
                 action="#"
               >
                 <div className="form-browse__block">
-                  <label htmlFor ="textArea01" className="subttl">
+                  <label htmlFor="textArea01" className="subttl">
                     Описание задачи
                   </label>
                   <textarea
@@ -48,7 +63,8 @@ const PopBrowse = () => {
                     id="textArea01"
                     readOnly
                     placeholder="Введите описание задачи..."
-                  ></textarea>
+                    value={task.description || ''}
+                  />
                 </div>
               </form>
               <div className="pop-new-card__calendar calendar">
@@ -59,7 +75,7 @@ const PopBrowse = () => {
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
               <div className="categories__theme _orange _active-category">
-                <p className="_orange">Web Design</p>
+                <p className="_orange">{task.category || 'Без категории'}</p>
               </div>
             </div>
             <div className="pop-browse__btn-browse ">
