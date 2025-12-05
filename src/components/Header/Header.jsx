@@ -1,6 +1,7 @@
 import { SContainer, SHeader, SHeaderBlock, SHeaderNav, SHeaderLogo, SHeaderLogoDark, SHeaderButtonMainNew, SHeaderUser } from "./Header.styled.js";
 import PopUser from "../PopUser/PopUser.jsx";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [showPopUser, setShowPopUser] = useState(false);
@@ -29,7 +30,7 @@ const Header = () => {
           </SHeaderLogoDark>
           <SHeaderNav>
             <SHeaderButtonMainNew className="_hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+              <Link to={`/add-task`}>Создать новую задачу</Link>
             </SHeaderButtonMainNew>
             <SHeaderUser 
               className="_hover02"
