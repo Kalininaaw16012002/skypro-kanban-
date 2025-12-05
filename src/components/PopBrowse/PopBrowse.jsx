@@ -24,7 +24,7 @@ const PopBrowse = ({ task }) => {
             <div className="pop-browse__top-block">
               <h3 className="pop-browse__ttl">Название задачи</h3>
               <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">{task.title || 'Без названия'}</p>
+                <p className="_orange">{task.theme || 'Без названия'}</p>
               </div>
             </div>
             <div className="pop-browse__status status">
