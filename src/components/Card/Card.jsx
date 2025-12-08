@@ -3,6 +3,7 @@ import { CardList, colorStyles } from "../../data";
 import { Link } from "react-router-dom";
 
 export const Card = ({ id, theme, colorClass, title, date }) => {
+
   return (
     <SCardsItem>
       <SCardsCard className="card">
@@ -11,7 +12,7 @@ export const Card = ({ id, theme, colorClass, title, date }) => {
             <SCardsText>{theme}</SCardsText>
           </SCardsTheme>
           <Link to={`/edit-task/${id}`}>
-            <SCardsBtn>
+            <SCardsBtn  >
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
@@ -19,9 +20,9 @@ export const Card = ({ id, theme, colorClass, title, date }) => {
           </Link>
         </SCardsGroup>
         <SCardsContent>
-          <a href="" target="_blank">
+          <Link target="_blank">
             <SCardsTitle>{title}</SCardsTitle>
-          </a>
+          </Link>
           <SCardsDate>
             {/* SVG и дата */}
             <SCardsDateSvg

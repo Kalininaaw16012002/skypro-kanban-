@@ -9,7 +9,6 @@ function MainPage({}) {
   return (
     <>
       <SWrapper>		
-			<PopNewCard />
 			<PopBrowse />
 			<Header />
 			<Main />		

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Calendar from "../Calendar/Calendar.jsx";
+import { Link } from "react-router-dom";
 
-const PopBrowse = ({ task }) => {
+const PopBrowse = ({ task, onClose }) => {
   if (!task) return null; 
   // Можно добавить локальное состояние, чтобы отслеживать загрузку
   const [loading, setLoading] = useState(true);
@@ -87,8 +88,8 @@ const PopBrowse = ({ task }) => {
                   <a href="#">Удалить задачу</a>
                 </button>
               </div>
-              <button className="btn-browse__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
+              <button className="btn-browse__close _btn-bg _hover01" onClick={onClose}>
+                <Link >Закрыть</Link>
               </button>
             </div>
             <div className="pop-browse__btn-edit _hide">
@@ -106,8 +107,8 @@ const PopBrowse = ({ task }) => {
                   <a href="#">Удалить задачу</a>
                 </button>
               </div>
-              <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
+              <button className="btn-edit__close _btn-bg _hover01" onClick={onClose}>
+                <Link>Закрыть</Link>
               </button>
             </div>
           </div>
