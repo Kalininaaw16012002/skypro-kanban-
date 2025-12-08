@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SCardsItem = styled.div`
+  position: relative;
   padding: 5px;
   animation-name: card-animation;
   animation-duration: 500ms;
