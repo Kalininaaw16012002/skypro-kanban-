@@ -37,8 +37,9 @@ const BaseInput = ({
   placeholder = "",
   type = "text",
   error = false,
+  onChange,
 }) => {
-  // Выбираем компонент в зависимости от тега
+
   const Component = tag === "textarea" ? StyledTextarea : StyledInput;
 
   return (
@@ -48,6 +49,7 @@ const BaseInput = ({
       type={type}
       placeholder={placeholder}
       $error={error}
+      onChange={onChange}
     />
   );
 };
