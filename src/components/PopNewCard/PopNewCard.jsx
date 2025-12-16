@@ -1,7 +1,30 @@
 import { Link } from "react-router-dom";
 import Calendar from "../Calendar/Calendar.jsx";
+import { useState } from "react";
+import { addTask } from "../../services/api.js";
 
-const PopNewCard = ({onClose}) => {
+const PopNewCard = ({onClose, refreshTasks}) => {
+   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('Web Design'); 
+  const [date, setDate] = useState(new Date().toISOString());
+
+  const handleCreate = async () => {
+    const taskData = {
+      title: title.trim() || 'Новая задача',
+      topic: category || 'Research',
+      description: description || '',
+      date: date,
+    };
+
+    try {
+      await addTask(taskData);
+      if (refreshTasks) refreshTasks();
+      onClose();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
@@ -28,6 +51,8 @@ const PopNewCard = ({onClose}) => {
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                   ></input>
                 </div>
                 <div className="form-new__block">
@@ -39,6 +64,8 @@ const PopNewCard = ({onClose}) => {
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
               </form>
@@ -61,7 +88,7 @@ const PopNewCard = ({onClose}) => {
                 </div>
               </div>
             </div>
-            <button className="form-new__create _hover01" id="btnCreate">
+            <button className="form-new__create _hover01" id="btnCreate" onClick={handleCreate}>
               Создать задачу
             </button>
           </div>

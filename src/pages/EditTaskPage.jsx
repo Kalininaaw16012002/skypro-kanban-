@@ -1,17 +1,15 @@
 import { useParams } from 'react-router-dom';
-import { CardList } from '../data';
 import PopBrowse from '../components/PopBrowse/PopBrowse';
 
 const EditTaskPage = () => {
-  const { id } = useParams();
-  const taskId = parseInt(id, 10);
-  const task = CardList.find((item) => item.id === taskId);
+  const { id } = useParams(); // получаем параметр url
+  const taskId = id ? parseInt(id, 10) : null; // преобразуем в число, если есть
 
-  if (!task) {
-    return <div>Задача не найдена</div>;
+  if (!taskId) {
+    return <div>Некорректный идентификатор задачи</div>;
   }
 
-  return <PopBrowse task={task} />;
+  return <PopBrowse taskId={taskId} onClose={() => { /* обработчик */ }} />;
 };
 
 export default EditTaskPage;

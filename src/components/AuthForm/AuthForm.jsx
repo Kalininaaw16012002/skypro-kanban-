@@ -3,86 +3,87 @@ import BaseButton from "./Button";
 import BaseInput from "./Input";
 import { SBg, SFormGroup, SFormGroupP, SInputWrapper, SModal, STitle, SWrapper } from "./AuthForm.styled";
 import { useState } from "react";
-import { signIn, signUp } from "../../services/auth";
-
+import { getUsers, signIn, signUp } from "../../services/auth";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-   // состояние полей
-   const [formData, setFormData] = useState({
-      name: "",
-      login: "",
-      password: "",
-   });
+  // состояние полей
+  const [formData, setFormData] = useState({
+    name: "",
+    login: "",
+    password: "",
+  });
 
-   // состояние ошибок
-   const [errors, setErrors] = useState({
-      name: "",
-      login: "",
-      password: "",
-   });
-
-   // состояние текста ошибки, чтобы показать её пользователю
-   const [error, setError] = useState("");
+  // ошибки полей
+  const [errors, setErrors] = useState({
+    name: "",
+    login: "",
+    password: "",
+  });
 
   // функция валидации
-const validateForm = () => {
-  const newErrors = { name: "", login: "", password: "" };
-  let isValid = true;
+  const validateForm = () => {
+    const newErrors = { name: "", login: "", password: "" };
+    let isValid = true;
 
-  if (isSignUp && !formData.name.trim()) {
-    newErrors.name = "Пожалуйста, заполните имя";
-    setError("Заполните все поля");
-    isValid = false;
-  }
+    if (isSignUp && !formData.name.trim()) {
+      newErrors.name = "Пожалуйста, заполните имя";
+      isValid = false;
+    }
 
-  if (!formData.login.trim()) {
-    newErrors.login = "Пожалуйста, заполните электронную почту";
-    setError("Заполните все поля");
-    isValid = false;
-  }
+    if (!formData.login.trim()) {
+      newErrors.login = "Пожалуйста, заполните электронную почту";
+      isValid = false;
+    }
 
-  if (!formData.password.trim()) {
-    newErrors.password = "Пожалуйста, введите пароль";
-    setError("Заполните все поля");
-    isValid = false;
-  }
+    if (!formData.password.trim()) {
+      newErrors.password = "Пожалуйста, введите пароль";
+      isValid = false;
+    }
 
-  setErrors(newErrors);
-  setError("");
-  return isValid;
-};
+    setErrors(newErrors);
+    return isValid;
+  };
 
-// функция, которая отслеживает изменение
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: "" }));
-    setError("");
-};
+  // обработчик изменения поля
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setErrors(prev => ({ ...prev, [name]: "" })); // очищаем ошибку при изменении
+  };
 
-   // функция отправки формы
-   const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (!validateForm()) {
-         // если у нас форма не прошла валидацию, то дальше не продолжаем
-         return;
-      }
-   try { 
-       const data = isSignUp
+  // отправка формы
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      return; // если валидация не прошла, не продолжаем
+    }
+    try {
+      const data = isSignUp
         ? await signUp({ name: formData.name, login: formData.login, password: formData.password })
         : await signIn({ login: formData.login, password: formData.password });
 
       if (data) {
-         setIsAuth(true);
-         localStorage.setItem("userInfo", JSON.stringify(data));
-         navigate("/");
+        setIsAuth(true);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        // получение списка пользователей
+        try {
+          const users = await getUsers();
+          console.log('Список пользователей:', users);
+        } catch (err) {
+          console.error('Ошибка получения списка пользователей:', err.message);
+        }
+        navigate("/");
       }
-      } catch (err) {
-         setError(err.message);
-      }
-   };
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  // глобальное сообщение об ошибке
+  const [error, setError] = useState("");
+
   return (
     <SBg>
       <SModal>
@@ -103,24 +104,27 @@ const handleChange = (e) => {
               )}
               <BaseInput
                 error={errors.login}
-                  type="text"
-                  name="login"
-                  id="formlogin"
-                  placeholder="Эл. почта"
-                  value={formData.login}
-                  onChange={handleChange}
+                type="text"
+                name="login"
+                id="formlogin"
+                placeholder="Эл. почта"
+                value={formData.login}
+                onChange={handleChange}
               />
               <BaseInput
                 error={errors.password}
-                  type="password"
-                  name="password"
-                  id="formpassword"
-                  placeholder="Пароль"
-                  value={formData.password}
-                  onChange={handleChange}
+                type="password"
+                name="password"
+                id="formpassword"
+                placeholder="Пароль"
+                value={formData.password}
+                onChange={handleChange}
               />
             </SInputWrapper>
-            <p style={{ color: "red" }}>{error}</p>
+            {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+            {errors.login && <p style={{ color: "red" }}>{errors.login}</p>}
+            {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <BaseButton
               type="secondary"
               fullWidth={true}

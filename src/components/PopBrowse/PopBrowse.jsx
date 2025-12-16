@@ -2,28 +2,37 @@ import { useEffect, useState } from "react";
 import Calendar from "../Calendar/Calendar.jsx";
 import { Link } from "react-router-dom";
 
-const PopBrowse = ({ task, onClose }) => {
-  if (!task) return null; 
-  // Можно добавить локальное состояние, чтобы отслеживать загрузку
+const PopBrowse = ({ taskId, onClose }) => {
+  const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (task && Object.keys(task).length > 0) {
-      setLoading(false);
+    console.log('taskId:', taskId);
+    if (taskId) {
+      fetchTaskById(taskId)
+        .then(data => {
+          setTask(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          setError(err.message);
+          setLoading(false);
+        });
     }
-  }, [task]);
+  }, [taskId]);
 
-  if (loading) {
-    return <div>Загрузка задачи...</div>;
-  }
-
+  // if (loading) return <div>Загрузка...</div>;
+  if (error) return <div>Ошибка: {error}</div>;
+  if (!task) return null;
+  console.log('Task:', task);
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Название задачи</h3>
+              <h3 className="pop-browse__ttl">{task.title}</h3>
               <div className="categories__theme theme-top _orange _active-category">
                 <p className="_orange">{task.theme || 'Без названия'}</p>
               </div>
