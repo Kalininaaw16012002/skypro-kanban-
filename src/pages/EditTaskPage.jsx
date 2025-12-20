@@ -1,15 +1,20 @@
 import { useParams } from 'react-router-dom';
 import PopBrowse from '../components/PopBrowse/PopBrowse';
 
-const EditTaskPage = () => {
-  const { id } = useParams(); // получаем параметр url
-  const taskId = id ? parseInt(id, 10) : null; // преобразуем в число, если есть
 
-  if (!taskId) {
+const EditTaskPage = () => {
+  const { id } = useParams();
+
+  if (!id) {
+    return <div>Некорректный идентификатор задачи</div>;
+  }
+  console.log('Получен id из URL:', id);
+
+  if (!id) {
     return <div>Некорректный идентификатор задачи</div>;
   }
 
-  return <PopBrowse taskId={taskId} onClose={() => { /* обработчик */ }} />;
+  return <PopBrowse taskId={id} onClose={() => {}} />;
 };
 
 export default EditTaskPage;

@@ -27,21 +27,22 @@ export async function fetchTasks(authToken) {
 }
 
 // Получить задачу по id
-export async function fetchTaskById(id) {
-  try {
-    const response = await axios.get(`${API_URL}/${id}`, {
-      headers: getAuthHeaders(),
-    });
-    console.log('API response:', response.data);
-    return response.data.task;
-  } catch (error) {
-    console.error('fetchTaskById error:', error);
-    if (error.response && error.response.status === 404) {
+export const fetchTaskById = async (id) => {
+  if (!id) {
+  console.error('ID задачи не передан');
+  // Обработайте ошибку или отобразите сообщение пользователю
+  return;
+}
+  const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`);
+  if (!response.ok) {
+    if (response.status === 404) {
       throw new Error('Задача не найдена');
     }
-    throw new Error('Ошибка при получении задачи');
+    throw new Error('Ошибка загрузки задачи');
   }
-}
+  const data = await response.json();
+  return data.task;
+};
 
 // Добавить новую задачу
 export async function addTask(taskData) {

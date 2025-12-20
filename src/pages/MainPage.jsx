@@ -6,17 +6,11 @@ import PopBrowse from '../components/PopBrowse/PopBrowse.jsx'
 import { SWrapper } from '../App.styled.js'
 import { useEffect, useState } from 'react';
 
-function MainPage({}) {
-  // состояние для управления видимостью popups, например
-  const [isPopBrowseOpen, setPopBrowseOpen] = useState(true);
+function MainPage() {
+  const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [currentTaskId, setCurrentTaskId] = useState(null); // новое состояние
 
-  // функция закрытия PopBrowse
-  const handleClose = () => {
-    setPopBrowseOpen(false);
-  };
-
-  // функция получения задач
   const fetchTasks = async () => {
     try {
       const response = await fetch('https://wedev-api.sky.pro/api/kanban', {
@@ -31,22 +25,33 @@ function MainPage({}) {
     }
   };
 
-  // можно вызвать fetchTasks один раз при загрузке компонента
   useEffect(() => {
     fetchTasks();
   }, []);
 
+  // функция для открытия PopBrowse с конкретным id
+ const handleOpenPopBrowse = (taskId) => {
+  if (taskId) {
+    setCurrentTaskId(taskId);
+    setPopBrowseOpen(true);
+  } else {
+    console.warn('taskId отсутствует');
+  }
+};
+
+  const handleClose = () => {
+    setPopBrowseOpen(false);
+  };
+
   return (
-    <>
-      <SWrapper>
-        {isPopBrowseOpen && (
-          <PopBrowse onClose={handleClose} refreshTasks={fetchTasks} />
-        )}
-        <Header />
-        <Main tasks={tasks} />		
-      </SWrapper>
-      <script src="js/script.js"></script>
-    </>
+    <SWrapper>
+      {isPopBrowseOpen && (
+        <PopBrowse taskId={currentTaskId} onClose={handleClose} refreshTasks={fetchTasks} />
+      )}
+      <Header />
+      {/* Передайте handleOpenPopBrowse в компонент Main, чтобы он мог вызывать */}
+      <Main tasks={tasks} onTaskClick={handleOpenPopBrowse} />
+    </SWrapper>
   );
 }
 
