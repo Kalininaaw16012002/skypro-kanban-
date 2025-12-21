@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
+import PopBrowse from "../PopBrowse/PopBrowse.jsx";
 
 
 const Main = () => {

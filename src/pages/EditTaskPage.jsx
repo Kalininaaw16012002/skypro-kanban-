@@ -8,11 +8,8 @@ const EditTaskPage = () => {
   if (!id) {
     return <div>Некорректный идентификатор задачи</div>;
   }
-  console.log('Получен id из URL:', id);
 
-  if (!id) {
-    return <div>Некорректный идентификатор задачи</div>;
-  }
+  console.log('Получен id из URL:', id);
 
   return <PopBrowse taskId={id} onClose={() => {}} />;
 };

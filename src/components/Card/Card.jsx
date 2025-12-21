@@ -17,7 +17,6 @@ const categoryClassNames = {
 };
 
 export const Card = ({ id,title, date, topic, onClick}) => {
-  console.log('Передаваемый id:', id);
 
   return (
     <SCardsItem>

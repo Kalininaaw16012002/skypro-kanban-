@@ -12,25 +12,26 @@ const categories = [
 const PopNewCard = ({ onClose, refreshTasks }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('Web Design'); // по умолчанию
+  const [category, setCategory] = useState('Research'); // по умолчанию
   const [date, setDate] = useState(new Date().toISOString());
 
-  const handleCreate = async () => {
-    const taskData = {
-      title: title.trim() || 'Новая задача',
-      topic: category || 'Research',
-      description: description || '',
-      date: date,
-    };
-
-    try {
-      await addTask(taskData);
-      if (refreshTasks) refreshTasks();
-      onClose();
-    } catch (err) {
-      alert(err.message);
-    }
+const handleCreate = async () => {
+  const taskData = {
+    title: title.trim() || 'Новая задача',
+    topic: category || 'Research',
+    description: description && description.trim() !== '' ? description : '', // всегда передавайте строку
+    date: date || new Date().toISOString(),
+    status: 'Без статуса',
   };
+
+  try {
+    await addTask(taskData);
+    if (refreshTasks) refreshTasks();
+    onClose();
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
   return (
     <div className="pop-new-card" id="popNewCard">

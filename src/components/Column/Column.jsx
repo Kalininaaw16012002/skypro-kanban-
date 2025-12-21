@@ -4,19 +4,19 @@ import { CardList } from "../../data.js";
 import { fetchTasks } from "../../services/api.js";
 import { useEffect, useState } from "react";
 
-const Column = () => {
+const Column = ({ onTaskClick }) => {
   const [tasks, setTasks] = useState([]);
 
-useEffect(() => {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    fetchTasks(token)
-      .then((data) => setTasks(data))
-      .catch((err) => console.error("Ошибка загрузки задач:", err));
-  } else {
-    console.warn('Токен не найден');
-  }
-}, []);
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      fetchTasks(token)
+        .then((data) => setTasks(data))
+        .catch((err) => console.error("Ошибка загрузки задач:", err));
+    } else {
+      console.warn('Токен не найден');
+    }
+  }, []);
 
   // Функция для получения карточек по статусу из задач
   const getCardsByStatus = (status) => {
@@ -25,56 +25,62 @@ useEffect(() => {
 
   return (
     <SMainContent>
+      {/* Колонка "Без статуса" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>Без статуса</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
           {getCardsByStatus("Без статуса").map(task => (
-            <Card key={task._id} {...task} />
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
+
+      {/* Колонка "Нужно сделать" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>Нужно сделать</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
           {getCardsByStatus("Нужно сделать").map(task => (
-            <Card key={task._id} {...task} />
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
+      {/* Колонка "В работе" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>В работе</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
           {getCardsByStatus("В работе").map(task => (
-            <Card key={task._id} {...task} />
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
+      {/* Колонка "Тестирование" */}
       <SMainColumn>
         <SMainColumnTitle>
           <SMainColumnTitleText>Тестирование</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
           {getCardsByStatus("Тестирование").map(task => (
-            <Card key={task._id} {...task} />
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
+      {/* Колонка "Готово" */}
       <SMainColumn>
         <SMainColumnTitle>
           <SMainColumnTitleText>Готово</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
           {getCardsByStatus("Готово").map(task => (
-            <Card key={task._id} {...task} />
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
