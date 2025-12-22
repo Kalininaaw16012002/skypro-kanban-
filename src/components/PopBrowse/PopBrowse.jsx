@@ -1,19 +1,17 @@
   import { useEffect, useState } from "react";
   import Calendar from "../Calendar/Calendar.jsx";
   import { Link, useNavigate } from "react-router-dom";
-  import { fetchTaskById } from "../../services/api.js";
+  import { deleteTask, fetchTaskById } from "../../services/api.js";
 
-  const PopBrowse = ({ taskId, onClose }) => {
+const PopBrowse = ({ taskId, onClose, onTaskDeleted }) => {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (taskId) {
-      const idToFetch = typeof taskId === 'string' ? taskId : taskId?.id;
-      setLoading(true);
-      fetchTaskById(idToFetch)
+      fetchTaskById(taskId)
         .then((data) => {
           setTask(data);
           setLoading(false);
@@ -25,24 +23,29 @@
     }
   }, [taskId]);
 
-  console.log('Удаляемая задача id:', task._id || task.id);
-
 const handleDelete = async () => {
+  console.log('Начинаю удаление задачи с id:', task?._id);
   if (!task || !task._id) {
     alert('Некорректный id задачи');
     return;
   }
   if (window.confirm('Вы действительно хотите удалить задачу?')) {
     try {
-      await deleteTask(task._id || task.id);
+      await deleteTask(task._id);
+      console.log('Задача успешно удалена');
       alert('Задача удалена');
-      onClose();
+      if (onTaskDeleted) {
+        console.log('Обновляем список задач');
+        onTaskDeleted();
+      }
+      console.log('Закрываем модальное окно');
+      handleClose();
     } catch (err) {
+      console.error('Ошибка при удалении:', err);
       alert('Ошибка при удалении задачи');
     }
   }
 };
-
   if (loading) {
     return <div>Загрузка...</div>;
   }
@@ -59,6 +62,8 @@ const handleDelete = async () => {
   const handleClose = () => {
     navigate(-1); // Вернуться на предыдущую страницу
   };
+
+  
 
     return (
       <div className="pop-browse" id="popBrowse">

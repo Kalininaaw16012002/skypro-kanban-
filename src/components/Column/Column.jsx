@@ -4,21 +4,10 @@ import { CardList } from "../../data.js";
 import { fetchTasks } from "../../services/api.js";
 import { useEffect, useState } from "react";
 
-const Column = ({ onTaskClick }) => {
-  const [tasks, setTasks] = useState([]);
+const Column = ({ tasks, onTaskClick }) => {
+  // Не создаем локальное состояние, используем пропсы напрямую
 
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      fetchTasks(token)
-        .then((data) => setTasks(data))
-        .catch((err) => console.error("Ошибка загрузки задач:", err));
-    } else {
-      console.warn('Токен не найден');
-    }
-  }, []);
-
-  // Функция для получения карточек по статусу из задач
+  // Функция для фильтрации задач по статусу
   const getCardsByStatus = (status) => {
     return tasks.filter(task => task.status === status);
   };

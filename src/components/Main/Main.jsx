@@ -3,31 +3,49 @@ import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
 import PopBrowse from "../PopBrowse/PopBrowse.jsx";
+import { fetchTasks } from "../../services/api.js";
 
 
 const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const [tasks, setTasks] = useState([]);
 
-
-  // Имитируем загрузку данных
-  useEffect(() => {
-    const timer = setTimeout(() => {
+  const loadTasks = () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      fetchTasks(token)
+        .then((data) => {
+          setTasks(data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error("Ошибка при загрузке задач:", err);
+          setIsLoading(false);
+        });
+    } else {
+      console.warn('Токен не найден');
       setIsLoading(false);
-    }, 3000);
-    return () => clearTimeout(timer);
+    }
+  };
+
+  useEffect(() => {
+    loadTasks();
   }, []);
 
-  // Обработчик клика по задаче
   const handleTaskClick = (taskId) => {
+    console.log('Клик по задаче, ID:', taskId);
     setSelectedTaskId(taskId);
     setPopBrowseOpen(true);
   };
 
-  // Закрытие попапа
   const handleClosePopBrowse = () => {
     setPopBrowseOpen(false);
+  };
+
+  const handleTaskDeleted = () => {
+    loadTasks();
   };
 
   return (
@@ -37,14 +55,17 @@ const Main = () => {
           {isLoading ? (
             <SMainLoading>Данные загружаются</SMainLoading>
           ) : (
-            <Column onTaskClick={handleTaskClick} /> // передаем обработчик в Column
+            <Column tasks={tasks} onClick={() => handleTaskClick(tasks._id)} />
           )}
         </SMainBlock>
       </SContainer>
 
-      {/* Показываем PopBrowse, если открыт */}
       {isPopBrowseOpen && (
-        <PopBrowse taskId={selectedTaskId} onClose={handleClosePopBrowse} />
+        <PopBrowse
+          taskId={selectedTaskId}
+          onClose={handleClosePopBrowse}
+          onTaskDeleted={handleTaskDeleted}
+        />
       )}
     </SMain>
   );

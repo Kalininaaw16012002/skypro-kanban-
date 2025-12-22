@@ -2,14 +2,9 @@ import axios from 'axios';
 
 const API_URL = "https://wedev-api.sky.pro/api/kanban";
 
-let authToken = null;
+let authToken = localStorage.getItem('authToken');
 
-const savedToken = localStorage.getItem('authToken');
-if (savedToken) {
-  authToken = savedToken;
-}
-
-function getAuthHeaders(authToken) {
+function getAuthHeaders() {
   return authToken ? { Authorization: `Bearer ${authToken}` } : {};
 }
 
@@ -82,7 +77,7 @@ export async function addTask(taskData) {
   }
 }
 
-// Обновить задачу по id
+// Изменить задачу
 export async function updateTask(id, taskData) {
   try {
     const response = await axios.put(`${API_URL}/${id}`, taskData, {
@@ -100,7 +95,7 @@ export async function updateTask(id, taskData) {
 // Удалить задачу по id
 export async function deleteTask(id) {
   try {
-    const response = await axios.delete(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+    const response = await axios.delete(`${API_URL}/${id}`, {
       headers: getAuthHeaders(),
     });
     console.log('Удаление прошло успешно:', response.data);
