@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PopBrowse from '../components/PopBrowse/PopBrowse';
 
 
 const EditTaskPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   if (!id) {
     return <div>Некорректный идентификатор задачи</div>;
@@ -11,7 +12,7 @@ const EditTaskPage = () => {
 
   console.log('Получен id из URL:', id);
 
-  return <PopBrowse taskId={id} onClose={() => {}} />;
+  return <PopBrowse taskId={id} onClose={() => navigate(-1)} />;
 };
 
 export default EditTaskPage;

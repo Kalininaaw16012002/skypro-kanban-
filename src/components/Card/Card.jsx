@@ -69,7 +69,7 @@ export const Card = ({ id,title, date, topic, onClick}) => {
                 </clipPath>
               </defs>
             </SCardsDateSvg>
-            <SCardsDateText>{formatDate(date)}</SCardsDateText>
+            <SCardsDateText>{date ? formatDate(date) : 'Дата не выбрана'}</SCardsDateText>
           </SCardsDate>
         </SCardsContent>
       </SCardsCard>

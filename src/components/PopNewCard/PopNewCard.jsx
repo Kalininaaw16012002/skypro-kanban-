@@ -9,23 +9,25 @@ const categories = [
   { name: 'Copywriting', className: '_purple' },
 ];
 
+
 const PopNewCard = ({ onClose, refreshTasks }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('Research'); // по умолчанию
-  const [date, setDate] = useState(new Date().toISOString());
+  const [category, setCategory] = useState('Research'); 
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
 
 const handleCreate = async () => {
   const taskData = {
     title: title.trim() || 'Новая задача',
     topic: category || 'Research',
-    description: description && description.trim() !== '' ? description : '', // всегда передавайте строку
-    date: date || new Date().toISOString(),
+    description: description && description.trim() !== '' ? description : '', 
+    date: selectedDate || new Date().toISOString(),
     status: 'Без статуса',
   };
 
   try {
     await addTask(taskData);
+    console.log('Добавлена задача:', addTask);
     if (refreshTasks) refreshTasks();
     onClose();
   } catch (err) {
@@ -79,7 +81,11 @@ const handleCreate = async () => {
               </form>
               <div className="pop-new-card__calendar calendar">
                 <p className="calendar__ttl subttl">Даты</p>
-                <Calendar />
+                <Calendar
+                  editable={true}
+                  date={selectedDate}
+                  onChange={(newDate) => setSelectedDate(newDate)}
+                />
               </div>
             </div>
             <div className="pop-new-card__categories categories">

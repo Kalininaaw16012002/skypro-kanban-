@@ -6,7 +6,7 @@ import PopBrowse from "../PopBrowse/PopBrowse.jsx";
 import { fetchTasks } from "../../services/api.js";
 
 
-const Main = () => {
+export const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
@@ -17,6 +17,7 @@ const Main = () => {
     if (token) {
       fetchTasks(token)
         .then((data) => {
+          console.log('Обновленный список задач:', data);
           setTasks(data);
           setIsLoading(false);
         })
@@ -55,7 +56,7 @@ const Main = () => {
           {isLoading ? (
             <SMainLoading>Данные загружаются</SMainLoading>
           ) : (
-            <Column tasks={tasks} onClick={() => handleTaskClick(tasks._id)} />
+            <Column tasks={tasks} onClick={handleTaskClick}  />
           )}
         </SMainBlock>
       </SContainer>

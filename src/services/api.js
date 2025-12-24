@@ -77,13 +77,14 @@ export async function addTask(taskData) {
   }
 }
 
+
 // Изменить задачу
 export async function updateTask(id, taskData) {
   try {
     const response = await axios.put(`${API_URL}/${id}`, taskData, {
       headers: {
         ...getAuthHeaders(),
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain',
       },
     });
     return response.data.tasks;

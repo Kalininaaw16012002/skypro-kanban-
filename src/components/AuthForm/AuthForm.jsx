@@ -81,7 +81,6 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
     }
   };
 
-  // глобальное сообщение об ошибке
   const [error, setError] = useState("");
 
   return (

@@ -396,6 +396,7 @@
     align-items: flex-start;
     justify-content: flex-start;
   }
+
   .status__theme {
     border-radius: 24px;
     border: 0.7px solid rgba(148, 166, 190, 0.4);
@@ -409,6 +410,14 @@
     line-height: 1;
     letter-spacing: -0.14px;
   }
+
+  
+
+  .status__theme._active {
+  background-color: #94A6BE; /* или другой цвет выделения */
+  color: #fff;
+  border-color: #94A6BE;
+}
 
   ._btn-bor {
     border-radius: 4px;
