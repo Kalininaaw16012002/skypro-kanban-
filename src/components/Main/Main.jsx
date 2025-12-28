@@ -2,17 +2,52 @@ import { useEffect, useState } from "react";
 import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
+import PopBrowse from "../PopBrowse/PopBrowse.jsx";
+import { fetchTasks } from "../../services/api.js";
 
 
-const Main = () => {
+export const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const [tasks, setTasks] = useState([]);
+
+  const loadTasks = () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      fetchTasks(token)
+        .then((data) => {
+          console.log('Обновленный список задач:', data);
+          setTasks(data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error("Ошибка при загрузке задач:", err);
+          setIsLoading(false);
+        });
+    } else {
+      console.warn('Токен не найден');
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-    return () => clearTimeout(timer);
+    loadTasks();
   }, []);
+
+  const handleTaskClick = (taskId) => {
+    console.log('Клик по задаче, ID:', taskId);
+    setSelectedTaskId(taskId);
+    setPopBrowseOpen(true);
+  };
+
+  const handleClosePopBrowse = () => {
+    setPopBrowseOpen(false);
+  };
+
+  const handleTaskDeleted = () => {
+    loadTasks();
+  };
 
   return (
     <SMain>
@@ -21,10 +56,18 @@ const Main = () => {
           {isLoading ? (
             <SMainLoading>Данные загружаются</SMainLoading>
           ) : (
-            <Column />
+            <Column tasks={tasks} onClick={handleTaskClick}  />
           )}
         </SMainBlock>
       </SContainer>
+
+      {isPopBrowseOpen && (
+        <PopBrowse
+          taskId={selectedTaskId}
+          onClose={handleClosePopBrowse}
+          onTaskDeleted={handleTaskDeleted}
+        />
+      )}
     </SMain>
   );
 };

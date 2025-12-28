@@ -1,71 +1,75 @@
 import Card from "../Card/Card.jsx";
 import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainContent } from "../Column/Column.styled.js";
 import { CardList } from "../../data.js";
+import { fetchTasks } from "../../services/api.js";
+import { useEffect, useState } from "react";
 
-const Column = () => {
-  // Функция для получения карточек по статусу
+const Column = ({ tasks, onTaskClick }) => {
+  console.log('Рендеринг Column, tasks:', tasks);
+
+  // Функция для фильтрации задач по статусу
   const getCardsByStatus = (status) => {
-    return CardList.filter(card => card.status === status);
+    return tasks.filter(task => task.status === status);
   };
 
   return (
     <SMainContent>
-      {/* Столбец "Без статуса" */}
+      {/* Колонка "Без статуса" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>Без статуса</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
-          {getCardsByStatus("Без статуса").map(card => (
-            <Card key={card.id} {...card} />
+          {getCardsByStatus("Без статуса").map(task => (
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
-      {/* Столбец "Нужно сделать" */}
+      {/* Колонка "Нужно сделать" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>Нужно сделать</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
-          {getCardsByStatus("Нужно сделать").map(card => (
-            <Card key={card.id} {...card} />
+          {getCardsByStatus("Нужно сделать").map(task => (
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
-      {/* Столбец "В работе" */}
+      {/* Колонка "В работе" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>В работе</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
-          {getCardsByStatus("В работе").map(card => (
-            <Card key={card.id} {...card} />
+          {getCardsByStatus("В работе").map(task => (
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
-      {/* Столбец "Тестирование" */}
+      {/* Колонка "Тестирование" */}
       <SMainColumn>
         <SMainColumnTitle>
           <SMainColumnTitleText>Тестирование</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
-          {getCardsByStatus("Тестирование").map(card => (
-            <Card key={card.id} {...card} />
+          {getCardsByStatus("Тестирование").map(task => (
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
 
-      {/* Столбец "Готово" */}
+      {/* Колонка "Готово" */}
       <SMainColumn>
         <SMainColumnTitle>
           <SMainColumnTitleText>Готово</SMainColumnTitleText>
         </SMainColumnTitle>
         <SMainCards>
-          {getCardsByStatus("Готово").map(card => (
-            <Card key={card.id} {...card} />
+          {getCardsByStatus("Готово").map(task => (
+            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} />
           ))}
         </SMainCards>
       </SMainColumn>
@@ -74,4 +78,3 @@ const Column = () => {
 };
 
 export default Column;
-

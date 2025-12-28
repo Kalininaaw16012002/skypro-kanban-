@@ -2,15 +2,31 @@ import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCards
 import { CardList, colorStyles } from "../../data";
 import { Link } from "react-router-dom";
 
-export const Card = ({ id, theme, colorClass, title, date }) => {
+const formatDate = (dateStr) => {
+  const dateObj = new Date(dateStr);
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const year = String(dateObj.getFullYear()).slice(-2);
+  return `${day}.${month}.${year}`;
+};
+
+const categoryClassNames = {
+  'Web Design': '_orange',
+  'Research': '_green',
+  'Copywriting': '_purple',
+};
+
+export const Card = ({ id,title, date, topic, onClick}) => {
 
   return (
     <SCardsItem>
-      <SCardsCard className="card">
+      <SCardsCard className="card" onClick={onClick} style={{ cursor: 'pointer' }}>
         <SCardsGroup>
-          <SCardsTheme style={colorStyles[colorClass]}>
-            <SCardsText>{theme}</SCardsText>
-          </SCardsTheme>
+          {topic && (
+            <SCardsTheme className={categoryClassNames[topic]}>
+            <SCardsText>{topic}</SCardsText>
+            </SCardsTheme>
+          )}
           <Link to={`/edit-task/${id}`}>
             <SCardsBtn  >
               <SCardsPoint></SCardsPoint>
@@ -53,7 +69,7 @@ export const Card = ({ id, theme, colorClass, title, date }) => {
                 </clipPath>
               </defs>
             </SCardsDateSvg>
-            <SCardsDateText>{date}</SCardsDateText>
+            <SCardsDateText>{date ? formatDate(date) : 'Дата не выбрана'}</SCardsDateText>
           </SCardsDate>
         </SCardsContent>
       </SCardsCard>

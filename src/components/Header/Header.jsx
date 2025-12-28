@@ -1,10 +1,9 @@
 import { SContainer, SHeader, SHeaderBlock, SHeaderNav, SHeaderLogo, SHeaderLogoDark, SHeaderButtonMainNew, SHeaderUser } from "./Header.styled.js";
 import PopUser from "../PopUser/PopUser.jsx";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import PopNewCard from "../PopNewCard/PopNewCard.jsx";
 
-const Header = () => {
+const Header = ({ onTaskDeleted }) => {
   const [showPopUser, setShowPopUser] = useState(false);
   const [showPopNewCard, setShowPopNewCard] = useState(false);
 
@@ -54,7 +53,7 @@ const Header = () => {
       </SContainer>
 
       {showPopNewCard && (
-        <PopNewCard onClose={handleClosePopNewCard} />
+        <PopNewCard onClose={handleClosePopNewCard}  onTaskDeleted={onTaskDeleted}/>
       )}
     </SHeader>
   );
