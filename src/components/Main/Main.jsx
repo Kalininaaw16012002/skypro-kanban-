@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
 import PopBrowse from "../PopBrowse/PopBrowse.jsx";
 import { fetchTasks } from "../../services/api.js";
+import { TaskContext } from "../../context/TaskContext.js";
 
 
 export const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const [tasks, setTasks] = useState([]);
+  const { tasks, setTasks } = useContext(TaskContext);
 
   const loadTasks = () => {
     const token = localStorage.getItem('authToken');

@@ -1,7 +1,8 @@
-    import { useEffect, useState } from "react";
+    import { useContext, useEffect, useState } from "react";
     import Calendar from "../Calendar/Calendar.jsx";
     import { Link, useNavigate } from "react-router-dom";
     import { deleteTask, fetchTaskById, updateTask } from "../../services/api.js";
+import { TaskContext } from "../../context/TaskContext.js";
 
     const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -10,7 +11,8 @@
 ];
 
   const PopBrowse = ({ taskId, onClose, onTaskDeleted }) => {
-  const [task, setTask] = useState(null);
+    const { deleteTaskFromState, updateTaskInState } = useContext(TaskContext);
+    const [task, setTask] = useState(null);
     const [originalTask, setOriginalTask] = useState(null); // для отмены
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -45,6 +47,7 @@
     if (window.confirm('Вы действительно хотите удалить задачу?')) {
       try {
         await deleteTask(task._id);
+        deleteTaskFromState(task._id);
         console.log('Задача успешно удалена');
         if (onTaskDeleted) {
           console.log('Обновляем список задач');
@@ -81,8 +84,7 @@ const handleSave = async () => {
     const updatedTask = { ...task, date: selectedDate || task.date };
     const response = await updateTask(task._id, updatedTask);
     if (response) {
-      setTask(response);
-      setOriginalTask(response);
+      updateTaskInState(response);
     }
     if (onClose) {
       console.log('Вызов onClose()');

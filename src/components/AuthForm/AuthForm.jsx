@@ -2,11 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import BaseButton from "./Button";
 import BaseInput from "./Input";
 import { SBg, SFormGroup, SFormGroupP, SInputWrapper, SModal, STitle, SWrapper } from "./AuthForm.styled";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getUsers, signIn, signUp } from "../../services/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext); 
 
   // состояние полей
   const [formData, setFormData] = useState({
