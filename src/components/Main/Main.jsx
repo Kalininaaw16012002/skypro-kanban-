@@ -8,29 +8,9 @@ import { TaskContext } from "../../context/TaskContext.js";
 
 
 export const Main = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const { tasks, setTasks } = useContext(TaskContext);
-
-  const loadTasks = () => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      fetchTasks(token)
-        .then((data) => {
-          console.log('Обновленный список задач:', data);
-          setTasks(data);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.error("Ошибка при загрузке задач:", err);
-          setIsLoading(false);
-        });
-    } else {
-      console.warn('Токен не найден');
-      setIsLoading(false);
-    }
-  };
+  const { tasks, loadTasks, isLoading } = useContext(TaskContext);
 
   useEffect(() => {
     loadTasks();

@@ -3,7 +3,7 @@ import BaseButton from "./Button";
 import BaseInput from "./Input";
 import { SBg, SFormGroup, SFormGroupP, SInputWrapper, SModal, STitle, SWrapper } from "./AuthForm.styled";
 import { useContext, useState } from "react";
-import { getUsers, signIn, signUp } from "../../services/auth";
+import { signIn, signUp } from "../../services/auth";
 import { AuthContext } from "../../context/AuthContext";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
@@ -23,6 +23,9 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
     login: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // функция валидации
   const validateForm = () => {
@@ -61,6 +64,8 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
     if (!validateForm()) {
       return; // если валидация не прошла, не продолжаем
     }
+    setIsLoading(true); 
+    setError("");
     try {
       const data = isSignUp
         ? await signUp({ name: formData.name, login: formData.login, password: formData.password })
@@ -69,21 +74,14 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
       if (data) {
         setIsAuth(true);
         localStorage.setItem("userInfo", JSON.stringify(data));
-        // получение списка пользователей
-        try {
-          const users = await getUsers();
-          console.log('Список пользователей:', users);
-        } catch (err) {
-          console.error('Ошибка получения списка пользователей:', err.message);
-        }
         navigate("/");
       }
     } catch (err) {
       setError(err.message);
+    }finally {
+      setIsLoading(false); 
     }
   };
-
-  const [error, setError] = useState("");
 
   return (
     <SBg>
@@ -101,6 +99,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                   placeholder="Имя"
                   value={formData.name}
                   onChange={handleChange}
+                  disabled={isLoading}
                 />
               )}
               <BaseInput
@@ -111,6 +110,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                 placeholder="Эл. почта"
                 value={formData.login}
                 onChange={handleChange}
+                disabled={isLoading}
               />
               <BaseInput
                 error={errors.password}
@@ -120,6 +120,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                 placeholder="Пароль"
                 value={formData.password}
                 onChange={handleChange}
+                disabled={isLoading}
               />
             </SInputWrapper>
             {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
@@ -130,6 +131,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
               type="secondary"
               fullWidth={true}
               text={isSignUp ? "Зарегистрироваться" : "Войти"}
+              disabled={isLoading}
             />
 
             {!isSignUp && (

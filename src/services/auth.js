@@ -41,18 +41,3 @@ export async function signUp({ name, login, password }) {
     throw new Error('Ошибка регистрации');
   }
 }
-
-export async function getUsers() {
-  try {
-    const response = await axios.get(API_URL, {
-      headers: getAuthHeaders(), 
-    });
-    return response.data.users;
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.error) {
-      throw new Error(error.response.data.error);
-    }
-    throw new Error('Ошибка при получении списка пользователей');
-  }
-}
-

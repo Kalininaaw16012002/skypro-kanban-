@@ -4,22 +4,29 @@ import { TaskContext } from "./TaskContext";
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadTasks = async () => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      try {
-        const data = await fetchTasks(token);
-        setTasks(data);
-      } catch (err) {
-        console.error("Ошибка при загрузке задач:", err);
-      }
+      fetchTasks(token)
+        .then((data) => {
+          setTasks(data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error("Ошибка при загрузке задач:", err);
+          setIsLoading(false);
+        });
+    } else {
+      console.warn('Токен не найден');
+      setIsLoading(false);
     }
   };
+
+    useEffect(() => {
+    loadTasks();
+  }, []);
 
   const addTask = (taskData) => {
     setTasks(prev => [...prev, taskData]);
@@ -42,6 +49,7 @@ export const TaskProvider = ({ children }) => {
         updateTaskInState,
         deleteTaskFromState,
         loadTasks,
+        isLoading,
       }}
     >
       {children}

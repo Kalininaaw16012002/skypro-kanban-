@@ -1,11 +1,13 @@
 import { SContainer, SHeader, SHeaderBlock, SHeaderNav, SHeaderLogo, SHeaderLogoDark, SHeaderButtonMainNew, SHeaderUser } from "./Header.styled.js";
 import PopUser from "../PopUser/PopUser.jsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PopNewCard from "../PopNewCard/PopNewCard.jsx";
+import { TaskContext } from "../../context/TaskContext.js";
 
 const Header = ({ onTaskDeleted }) => {
   const [showPopUser, setShowPopUser] = useState(false);
   const [showPopNewCard, setShowPopNewCard] = useState(false);
+  const { loadTasks } = useContext(TaskContext);
 
   const handleUserClick = () => {
     setShowPopUser(prev => !prev);
@@ -53,7 +55,7 @@ const Header = ({ onTaskDeleted }) => {
       </SContainer>
 
       {showPopNewCard && (
-        <PopNewCard onClose={handleClosePopNewCard}  onTaskDeleted={onTaskDeleted}/>
+        <PopNewCard onClose={handleClosePopNewCard}  onTaskDeleted={onTaskDeleted} refreshTasks={loadTasks}/>
       )}
     </SHeader>
   );

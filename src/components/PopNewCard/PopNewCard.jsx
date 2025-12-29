@@ -27,8 +27,7 @@ const handleCreate = async () => {
 
   try {
     await addTask(taskData);
-    console.log('Добавлена задача:', addTask);
-    if (refreshTasks) refreshTasks();
+     if (refreshTasks) refreshTasks();
     onClose();
   } catch (err) {
     alert(err.message);
