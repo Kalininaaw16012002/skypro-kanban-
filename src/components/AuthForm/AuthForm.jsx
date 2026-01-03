@@ -69,10 +69,10 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
     try {
       const data = isSignUp
         ? await signUp({ name: formData.name, login: formData.login, password: formData.password })
-        : await signIn({ login: formData.login, password: formData.password });
+        : await signIn({ login: formData.login, password: formData.password }, setIsAuth);
 
       if (data) {
-        setIsAuth(true);
+        setUser(data);
         localStorage.setItem("userInfo", JSON.stringify(data));
         if (onAuthSuccess) {
           onAuthSuccess(); 

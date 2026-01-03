@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { SPopExit, SPopExitBlock, SPopExitContainer, SPopExitFormGroup, SPopExitNo, SPopExitNoA, SPopExitTtl, SPopExitYes, SPopExitYesA, SPopUserButton, SPopUserButtonDirect, SPopUserCheckbox, SPopUserSet, SPopUserSetMail, SPopUserSetName, SPopUserSetTheme, SPopUserSetThemeText } from "./PopUser.styled";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const PopUser = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate(); 
+  const { user, logout, isAuth } = useContext(AuthContext);
+  console.log('isAuth в PopUser:', isAuth);
 
   const handleLogout = () => {
     navigate('/sign-in'); 
@@ -13,8 +16,8 @@ const PopUser = () => {
   return (
     <>
       <SPopUserSet className="pop-user-set" id="user-set-target">
-        <SPopUserSetName>Ivan Ivanov</SPopUserSetName>
-        <SPopUserSetMail>ivan.ivanov@gmail.com</SPopUserSetMail>
+        <SPopUserSetName>{user?.name || 'Имя'}</SPopUserSetName>
+        <SPopUserSetMail>{user?.login || 'email@example.com'}</SPopUserSetMail>
         <SPopUserSetTheme>
           <SPopUserSetThemeText>Темная тема</SPopUserSetThemeText>
           <SPopUserCheckbox type="checkbox" name="checkbox" />
@@ -44,6 +47,7 @@ const PopUser = () => {
                     <SPopExitYesA
                       onClick={(e) => {
                         e.preventDefault();
+                        logout();
                         handleLogout();
                       }}
                     >

@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
 import PopBrowse from "../PopBrowse/PopBrowse.jsx";
-import { fetchTasks } from "../../services/api.js";
 import { TaskContext } from "../../context/TaskContext.js";
 
 
@@ -11,10 +10,6 @@ export const Main = () => {
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, loadTasks, isLoading } = useContext(TaskContext);
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
 
   const handleTaskClick = (taskId) => {
     console.log('Клик по задаче, ID:', taskId);

@@ -1,7 +1,7 @@
-    import { useContext, useEffect, useState } from "react";
-    import Calendar from "../Calendar/Calendar.jsx";
-    import { Link, useNavigate } from "react-router-dom";
-    import { deleteTask, fetchTaskById, updateTask } from "../../services/api.js";
+import { useContext, useEffect, useState } from "react";
+import Calendar from "../Calendar/Calendar.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteTask, updateTask } from "../../services/api.js";
 import { TaskContext } from "../../context/TaskContext.js";
 
     const categories = [
@@ -11,7 +11,7 @@ import { TaskContext } from "../../context/TaskContext.js";
 ];
 
   const PopBrowse = ({ taskId, onClose, onTaskDeleted }) => {
-    const { deleteTaskFromState, updateTaskInState } = useContext(TaskContext);
+    const { tasks, deleteTaskFromState, updateTaskInState } = useContext(TaskContext);
     const [task, setTask] = useState(null);
     const [originalTask, setOriginalTask] = useState(null); // для отмены
     const [loading, setLoading] = useState(true);
@@ -23,23 +23,21 @@ import { TaskContext } from "../../context/TaskContext.js";
     const category = task ? categories.find(cat => cat.name === task.topic) : null;
     const categoryClass = category ? category.className : '_orange';
 
-    useEffect(() => {
-      if (taskId) {
-        fetchTaskById(taskId)
-          .then((data) => {
-            setTask(data);
-            setOriginalTask(data);
-            setLoading(false);
-          })
-          .catch((err) => {
-            setError(err.message);
-            setLoading(false);
-          });
+useEffect(() => {
+    if (taskId && tasks.length > 0) {
+      const foundTask = tasks.find(t => t._id === taskId);
+      if (foundTask) {
+        setTask(foundTask);
+        setOriginalTask(foundTask);
+        setLoading(false);
+      } else {
+        setError('Задача не найдена');
+        setLoading(false);
       }
-    }, [taskId]);
+    }
+  }, [taskId, tasks]);
 
   const handleDelete = async () => {
-    console.log('Начинаю удаление задачи с id:', task?._id);
     if (!task || !task._id) {
       alert('Некорректный id задачи');
       return;
@@ -48,17 +46,9 @@ import { TaskContext } from "../../context/TaskContext.js";
       try {
         await deleteTask(task._id);
         deleteTaskFromState(task._id);
-        console.log('Задача успешно удалена');
-        if (onTaskDeleted) {
-          console.log('Обновляем список задач');
-          onTaskDeleted();
-        }
-        if (onClose) {
-        console.log('Вызов onClose()');
-        onClose();
-      }
+        if (onTaskDeleted) onTaskDeleted();
+        if (onClose) onClose();
       } catch (err) {
-        console.error('Ошибка при удалении:', err);
         alert('Ошибка при удалении задачи');
       }
     }
@@ -79,27 +69,18 @@ import { TaskContext } from "../../context/TaskContext.js";
     };
 
 const handleSave = async () => {
-  console.log('Отправляем данные для обновления:', task);
-  try {
-    const updatedTaskData = { ...task, date: selectedDate || task.date };
-    const response = await updateTask(task._id, updatedTaskData);
-    if (response) {
-      updateTaskInState(response); // передаем один объект задачи
-    } 
-    if (onTaskDeleted) {
-      console.log('Обновляем список задач');
-      onTaskDeleted();
+    try {
+      const updatedTaskData = { ...task, date: task.date };
+      const response = await updateTask(task._id, updatedTaskData);
+      if (response) {
+        updateTaskInState(response);
+      }
+      if (onTaskDeleted) onTaskDeleted();
+      if (onClose) onClose();
+    } catch (err) {
+      alert('Ошибка при сохранении изменений');
     }
-    if (onClose) {
-      console.log('Вызов onClose()');
-      onClose();
-    }
-    setIsEditing(false);
-  } catch (err) {
-    console.error('Ошибка при сохранении:', err);
-    alert('Ошибка при сохранении изменений');
-  }
-};
+  };
 
     const handleChange = (field, value) => {
       setTask(prev => ({ ...prev, [field]: value }));

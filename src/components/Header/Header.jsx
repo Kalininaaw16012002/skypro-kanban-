@@ -2,12 +2,12 @@ import { SContainer, SHeader, SHeaderBlock, SHeaderNav, SHeaderLogo, SHeaderLogo
 import PopUser from "../PopUser/PopUser.jsx";
 import { useContext, useState } from "react";
 import PopNewCard from "../PopNewCard/PopNewCard.jsx";
-import { TaskContext } from "../../context/TaskContext.js";
+import { AuthContext } from "../../context/AuthContext.js";
 
-const Header = ({ onTaskDeleted }) => {
+const Header = () => {
   const [showPopUser, setShowPopUser] = useState(false);
   const [showPopNewCard, setShowPopNewCard] = useState(false);
-  const { loadTasks } = useContext(TaskContext);
+  const { user } = useContext(AuthContext);
 
   const handleUserClick = () => {
     setShowPopUser(prev => !prev);
@@ -24,10 +24,6 @@ const Header = ({ onTaskDeleted }) => {
   const handleClosePopNewCard = () => {
     setShowPopNewCard(false);
   }
-
-  const refreshTasks = async () => {
-  await loadTasks();
-};
 
   return (
     <SHeader>
@@ -51,7 +47,7 @@ const Header = ({ onTaskDeleted }) => {
               className="_hover02"
               onClick={handleUserClick}
             >
-              Ivan Ivanov
+              {user?.name || "Пользователь"}
             </SHeaderUser>
             {showPopUser && <PopUser onClose={handleClosePopUser} />}
           </SHeaderNav>
@@ -59,10 +55,12 @@ const Header = ({ onTaskDeleted }) => {
       </SContainer>
 
       {showPopNewCard && (
-        <PopNewCard onClose={handleClosePopNewCard}  onTaskDeleted={onTaskDeleted} onRefreshTasks={refreshTasks}/>
+        <PopNewCard onClose={handleClosePopNewCard}/>
       )}
     </SHeader>
   );
 };
 
 export default Header;
+
+

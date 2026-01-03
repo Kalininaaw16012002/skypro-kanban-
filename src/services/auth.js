@@ -7,7 +7,7 @@ function getAuthHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-export async function signIn({ login, password }) {
+export async function signIn({ login, password }, setIsAuth) {
   try {
     const response = await axios.post(`${API_URL}/login`, { login, password }, {
       headers: {
@@ -16,6 +16,7 @@ export async function signIn({ login, password }) {
     });
     const token = response.data.user.token;
     localStorage.setItem('authToken', token); // сохраняем токен в localStorage
+    setIsAuth(true);
     return response.data.user;
   } catch (error) {
     if (error.response && error.response.data && error.response.data.error) {

@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import SignIn from "../components/SignIn";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { TaskContext } from "../context/TaskContext";
 
-const LoginPage = ({ setIsAuth, loadTasks }) => {
+const LoginPage = ({ setIsAuth }) => {
+  const { loadTasks } = useContext(TaskContext);
   const navigate = useNavigate();
+
   const handleAuthSuccess = async () => {
     await loadTasks();
     setIsAuth(true);

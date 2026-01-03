@@ -9,10 +9,11 @@ import PrivateRoute from './PrivateRoute';
 import { useContext, useEffect, useState } from 'react';
 import ExitPage from '../pages/ExitPage';
 import { TaskContext } from '../context/TaskContext';
+import { AuthContext } from '../context/AuthContext';
 
 
 function AppRoutes() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { isAuth, setIsAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const { loadTasks } = useContext(TaskContext);
   useEffect(() => {

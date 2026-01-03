@@ -3,46 +3,63 @@ import { AuthContext } from "./AuthContext";
 import { checkLs } from "../utils/checkLs";
 
 // В виде пропса children
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let storedUser = null;
-    try {
-      const data = localStorage.getItem("userInfo");
-      if (data && data !== "undefined") {
-        storedUser = JSON.parse(data);
+    const storedUser = localStorage.getItem('userInfo');
+    console.log('Считанный из localStorage user:', storedUser);
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setIsAuth(true);
+      } catch (error) {
+        console.error('Ошибка парсинга user из localStorage:', error);
+        setUser(null);
+        setIsAuth(false);
       }
-    } catch (error) {
-      console.error("Ошибка при загрузке данных из localStorage:", error);
-      localStorage.removeItem("userInfo");
     }
-    setUser(storedUser);
+    setIsLoading(false);
   }, []);
 
-   // Обновляем данные о пользователе и сохраняем в лс
-   const updateUserInfo = (userData) => {
+  // Обновляем данные о пользователе и сохраняем в localStorage
+  const updateUserInfo = (userData) => {
+    if (userData) {
       setUser(userData);
-      if (userData) {
-         localStorage.setItem("userInfo", JSON.stringify(userData));
-      } else {
-         localStorage.removeItem("userInfo");
-      }
-   };
+      localStorage.setItem("userInfo", JSON.stringify(userData));
+      setIsAuth(true);
+    } else {
+      setUser(null);
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("authToken");
+      setIsAuth(false);
+    }
+  };
 
-   const login = (loginData) => {
-      updateUserInfo(loginData);
-      return true;
-   };
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem('userInfo', JSON.stringify(userData));
+    setIsAuth(true); 
+  };
 
-   const logout = () => {
-      updateUserInfo(null);
-      return true;
-   };
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('authToken');
+    setIsAuth(false);
+  };
+
+  // Пока идет загрузка, можно показывать null или спиннер
+  if (isLoading) {
+    return null; // или любой компонент-заглушка
+  }
    // В сам провайдер нужно обязательно прокинуть те значения,
    // которые мы хотим использовать в разных частях приложения
    return (
-      <AuthContext.Provider value={{ user, login, logout, updateUserInfo }}>
+      <AuthContext.Provider value={{ user, setUser, login, logout, updateUserInfo, isAuth, setIsAuth }}>
          {children}
       </AuthContext.Provider>
    );

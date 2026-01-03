@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fetchTasks } from "../services/api";
 import { TaskContext } from "./TaskContext";
 
@@ -23,10 +23,6 @@ export const TaskProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
-  //   useEffect(() => {
-  //   loadTasks();
-  // }, []);
 
   const addTask = (taskData) => {
     setTasks(prev => [...prev, taskData]);

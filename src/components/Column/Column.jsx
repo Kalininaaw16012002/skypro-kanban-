@@ -1,11 +1,7 @@
 import Card from "../Card/Card.jsx";
 import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainContent } from "../Column/Column.styled.js";
-import { CardList } from "../../data.js";
-import { fetchTasks } from "../../services/api.js";
-import { useEffect, useState } from "react";
 
 const Column = ({ tasks, onTaskClick }) => {
-  console.log('Рендеринг Column, tasks:', tasks);
 
   // Функция для фильтрации задач по статусу
   const getCardsByStatus = (status) => {

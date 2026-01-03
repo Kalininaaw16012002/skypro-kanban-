@@ -1,6 +1,6 @@
 import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
 import { CardList, colorStyles } from "../../data";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const formatDate = (dateStr) => {
   const dateObj = new Date(dateStr);
@@ -27,7 +27,7 @@ export const Card = ({ id,title, date, topic, onClick}) => {
             <SCardsText>{topic}</SCardsText>
             </SCardsTheme>
           )}
-          <Link to={`/edit-task/${id}`}>
+          <Link Navigate to={`/edit-task/${id}`}>
             <SCardsBtn  >
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
