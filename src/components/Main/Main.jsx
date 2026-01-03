@@ -26,9 +26,10 @@ export const Main = () => {
     setPopBrowseOpen(false);
   };
 
-  const handleTaskDeleted = () => {
-    loadTasks();
-  };
+
+const handleTaskDeleted = async () => {
+  await loadTasks();
+};
 
   return (
     <SMain>

@@ -6,13 +6,15 @@ import NotFound from '../pages/NotFound';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import PrivateRoute from './PrivateRoute';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ExitPage from '../pages/ExitPage';
+import { TaskContext } from '../context/TaskContext';
 
 
 function AppRoutes() {
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { loadTasks } = useContext(TaskContext);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -28,7 +30,7 @@ function AppRoutes() {
         <Route path="/exit/:action" element={<ExitPage setIsAuth={setIsAuth} />} />
     </Route>
 
-      <Route path="/sign-in" element={<LoginPage setIsAuth = {setIsAuth}/>} />
+      <Route path="/sign-in" element={<LoginPage setIsAuth = {setIsAuth} loadTasks={loadTasks}/>} />
       <Route path="/sign-up" element={<RegisterPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

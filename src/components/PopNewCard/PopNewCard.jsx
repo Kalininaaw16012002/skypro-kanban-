@@ -10,7 +10,7 @@ const categories = [
 ];
 
 
-const PopNewCard = ({ onClose, refreshTasks }) => {
+const PopNewCard = ({ onClose, onRefreshTasks }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Research'); 
@@ -27,7 +27,7 @@ const handleCreate = async () => {
 
   try {
     await addTask(taskData);
-     if (refreshTasks) refreshTasks();
+     if (onRefreshTasks) onRefreshTasks();
     onClose();
   } catch (err) {
     alert(err.message);

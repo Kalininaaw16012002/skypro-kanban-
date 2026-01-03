@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm/AuthForm";
 
-
 const SignUp = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const navigate = useNavigate();
 
-  return <AuthForm isSignUp={true} setIsAuth={setIsAuth} />;
+  const handleAuthSuccess = () => {
+    navigate("/sign-in");
+  };
+
+  return <AuthForm isSignUp={true} setIsAuth={() => {}} onAuthSuccess={handleAuthSuccess} />;
 };
 
 export default SignUp;

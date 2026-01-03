@@ -81,10 +81,14 @@ import { TaskContext } from "../../context/TaskContext.js";
 const handleSave = async () => {
   console.log('Отправляем данные для обновления:', task);
   try {
-    const updatedTask = { ...task, date: selectedDate || task.date };
-    const response = await updateTask(task._id, updatedTask);
+    const updatedTaskData = { ...task, date: selectedDate || task.date };
+    const response = await updateTask(task._id, updatedTaskData);
     if (response) {
-      updateTaskInState(response);
+      updateTaskInState(response); // передаем один объект задачи
+    } 
+    if (onTaskDeleted) {
+      console.log('Обновляем список задач');
+      onTaskDeleted();
     }
     if (onClose) {
       console.log('Вызов onClose()');
@@ -100,11 +104,7 @@ const handleSave = async () => {
     const handleChange = (field, value) => {
       setTask(prev => ({ ...prev, [field]: value }));
     };
-
-      if (loading) {
-      return <div>Загрузка...</div>;
-    }
-
+    
     if (error) {
       return <div>Ошибка: {error}</div>;
     }

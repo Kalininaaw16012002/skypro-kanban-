@@ -9,7 +9,7 @@ export const TaskProvider = ({ children }) => {
   const loadTasks = async () => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      fetchTasks(token)
+      fetchTasks()
         .then((data) => {
           setTasks(data);
           setIsLoading(false);
@@ -24,9 +24,9 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-    useEffect(() => {
-    loadTasks();
-  }, []);
+  //   useEffect(() => {
+  //   loadTasks();
+  // }, []);
 
   const addTask = (taskData) => {
     setTasks(prev => [...prev, taskData]);

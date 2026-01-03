@@ -25,6 +25,10 @@ const Header = ({ onTaskDeleted }) => {
     setShowPopNewCard(false);
   }
 
+  const refreshTasks = async () => {
+  await loadTasks();
+};
+
   return (
     <SHeader>
       <SContainer>
@@ -55,7 +59,7 @@ const Header = ({ onTaskDeleted }) => {
       </SContainer>
 
       {showPopNewCard && (
-        <PopNewCard onClose={handleClosePopNewCard}  onTaskDeleted={onTaskDeleted} refreshTasks={loadTasks}/>
+        <PopNewCard onClose={handleClosePopNewCard}  onTaskDeleted={onTaskDeleted} onRefreshTasks={refreshTasks}/>
       )}
     </SHeader>
   );

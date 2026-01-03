@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { TaskContext } from "../context/TaskContext";
+import { AuthContext } from "../context/AuthContext";
 
-function ExitPage({ setIsAuth }) {
-  const { action } = useParams();
+const ExitPage = ({ setIsAuth }) => {
+  const { setTasks } = useContext(TaskContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (action === 'logout') {
-      setIsAuth(false);
-      navigate('/sign-in');
-    }
-  }, [action, setIsAuth, navigate]);
+    setIsAuth(false);
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("authToken"); // удаляем токен
+    setTasks([]); // очищаем задачи
+    navigate("/sign-in");
+  }, []);
 
-  return (
-    <div>
-      {action === 'logout' ? 'Вы вышли из аккаунта...' : 'Обработка...'}
-    </div>
-  );
-}
+  return null;
+};
 
 export default ExitPage;

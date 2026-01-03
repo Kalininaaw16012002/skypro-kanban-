@@ -3,21 +3,22 @@ import { AuthContext } from "./AuthContext";
 import { checkLs } from "../utils/checkLs";
 
 // В виде пропса children
-const AuthProvider = ({ children }) => {
-   // checkLs проверяет лс на наличие ключа userInfo
-   const [user, setUser] = useState(checkLs());  // Здесь будет лежать инфа о юзере
+const AuthProvider = ({children}) => {
+  const [user, setUser] = useState(null);
 
-   useEffect(() => {
-   // А тут мы проверяем ЛС, когда приложение запускается
-   try {
-      const storedUser = localStorage.getItem("userInfo");
-      if (storedUser) {
-         setUser(JSON.parse(storedUser));
+  useEffect(() => {
+    let storedUser = null;
+    try {
+      const data = localStorage.getItem("userInfo");
+      if (data && data !== "undefined") {
+        storedUser = JSON.parse(data);
       }
-   } catch (error) {
+    } catch (error) {
       console.error("Ошибка при загрузке данных из localStorage:", error);
-   }
-   }, []);
+      localStorage.removeItem("userInfo");
+    }
+    setUser(storedUser);
+  }, []);
 
    // Обновляем данные о пользователе и сохраняем в лс
    const updateUserInfo = (userData) => {
