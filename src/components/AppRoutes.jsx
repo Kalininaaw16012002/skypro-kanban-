@@ -23,15 +23,17 @@ function AppRoutes() {
   }, []);
 
   return (
-    <Routes>
-    <Route element={<PrivateRoute isAuth = {isAuth} />}>
-        <Route path="/" element={<MainPage loading={loading}/>} />     
-        <Route path="/add-task" element={<AddTaskPage />} />
-        <Route path="/edit-task/:id" element={<EditTaskPage />} />
-        <Route path="/exit/:action" element={<ExitPage setIsAuth={setIsAuth} />} />
-    </Route>
+     <Routes>
+      <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route element={<MainPage loading={loading} />}>
+          <Route path="/" element={<div />} />
+          <Route path="/add-task" element={<AddTaskPage />} />
+          <Route path="/edit-task/:id" element={<EditTaskPage />} />
+          <Route path="/exit/:action" element={<ExitPage setIsAuth={setIsAuth} />} />
+        </Route>
+      </Route>
 
-      <Route path="/sign-in" element={<LoginPage setIsAuth = {setIsAuth} loadTasks={loadTasks}/>} />
+      <Route path="/sign-in" element={<LoginPage setIsAuth={setIsAuth} loadTasks={loadTasks} />} />
       <Route path="/sign-up" element={<RegisterPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

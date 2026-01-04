@@ -3,6 +3,7 @@ import Calendar from "../Calendar/Calendar.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteTask, updateTask } from "../../services/api.js";
 import { TaskContext } from "../../context/TaskContext.js";
+import { SPopBrowse, SPopBrowseBlock, SPopBrowseContainer, SPopBrowseContent, SPopBrowseTopBlock, SPopBrowseTtl } from "./PopBrowse.styled.js";
 
     const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -95,17 +96,17 @@ const handleSave = async () => {
     }
 
       return (
-        <div className="pop-browse" id="popBrowse">
-          <div className="pop-browse__container">
-            <div className="pop-browse__block">
-              <div className="pop-browse__content">
-                <div className="pop-browse__top-block">
-                  <h3 className="pop-browse__ttl">{task.title}</h3>
+        <SPopBrowse id="popBrowse">
+          <SPopBrowseContainer>
+            <SPopBrowseBlock>
+              <SPopBrowseContent>
+                <SPopBrowseTopBlock>
+                  <SPopBrowseTtl>{task.title}</SPopBrowseTtl>
                   <div className={`categories__theme theme-top ${categoryClass} _active-category`}>
                   <p className={categoryClass}>{task.topic || 'Без названия'}</p>
                   </div>
-                  </div>
-                </div>
+                  </SPopBrowseTopBlock>
+                </SPopBrowseContent>
                 <div className="pop-browse__status status">
                   <p className="status__p subttl">Статус</p>
                   <div className="status__themes">
@@ -187,9 +188,9 @@ const handleSave = async () => {
                     <Link>Закрыть</Link>
                   </button>
                 </div>
-              </div>
-            </div>
-          </div>
+              </SPopBrowseBlock>
+            </SPopBrowseContainer>
+          </SPopBrowse>
       );
     };
 
