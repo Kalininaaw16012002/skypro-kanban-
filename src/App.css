@@ -267,12 +267,12 @@
     min-width: 375px;
     height: 100%;
     min-height: 100vh;
-    position: fixed; /* лучше использовать fixed для модалки, чтобы она всегда была поверх даже при прокрутке */
+    position: absolute; 
     top: 0;
     left: 0;
-    z-index: 9999; /* очень высокий z-index */
-    background: rgba(0, 0, 0, 0.4); /* затемнение фона */
-    display: flex; /* для центрирования содержимого */
+    z-index: 6; 
+    background: rgba(0, 0, 0, 0.4); 
+    display: flex; 
     justify-content: center;
     align-items: center;
   }

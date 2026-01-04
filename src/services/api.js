@@ -2,24 +2,21 @@ import axios from 'axios';
 
 const API_URL = "https://wedev-api.sky.pro/api/kanban";
 
-let authToken = localStorage.getItem('authToken');
-
 function getAuthHeaders() {
-  return authToken ? { Authorization: `Bearer ${authToken}` } : {};
+  const token = localStorage.getItem('authToken');
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 // Получить список задач
-export async function fetchTasks(authToken) {
-  console.log('Текущий токен:', authToken);
+export async function fetchTasks() {
   try {
     const response = await axios.get(API_URL, {
-      headers: getAuthHeaders(authToken),
+      headers: getAuthHeaders(),
     });
     return response.data.tasks;
   } catch (error) {
     throw new Error('Ошибка при получении задач');
-  }
-}
+  }}
 
 // Получить задачу по id
 export const fetchTaskById = async (id) => {
@@ -33,9 +30,7 @@ export const fetchTaskById = async (id) => {
   console.log('Используемый id:', idToUse, 'Тип:', typeof idToUse);
 
   const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${idToUse}`, {
-    headers: {
-      'Authorization': `Bearer ${authToken}`,
-    },
+    headers: getAuthHeaders()
   });
 
   if (!response.ok) {
@@ -65,7 +60,7 @@ export async function addTask(taskData) {
     const response = await axios.post(API_URL, data, {
       headers: {
         'Content-Type': 'text/plain', 
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+        ...getAuthHeaders(),
       },
     });
     return response.data.tasks; 
