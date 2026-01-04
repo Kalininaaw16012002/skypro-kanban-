@@ -17,6 +17,11 @@ const categoryClassNames = {
 };
 
 export const Card = ({ id,title, date, topic, onClick}) => {
+    const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/edit-task/${id}`);
+  };
 
   return (
     <SCardsItem>
@@ -27,13 +32,11 @@ export const Card = ({ id,title, date, topic, onClick}) => {
             <SCardsText>{topic}</SCardsText>
             </SCardsTheme>
           )}
-          <Link Navigate to={`/edit-task/${id}`}>
-            <SCardsBtn  >
+            <SCardsBtn onClick={handleNavigate}>
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
               <SCardsPoint></SCardsPoint>
             </SCardsBtn>
-          </Link>
         </SCardsGroup>
         <SCardsContent>
           <Link target="_blank">

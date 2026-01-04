@@ -12,7 +12,6 @@ export const Main = () => {
   const { tasks, loadTasks, isLoading } = useContext(TaskContext);
 
   const handleTaskClick = (taskId) => {
-    console.log('Клик по задаче, ID:', taskId);
     setSelectedTaskId(taskId);
     setPopBrowseOpen(true);
   };

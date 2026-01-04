@@ -10,7 +10,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('userInfo');
-    console.log('Считанный из localStorage user:', storedUser);
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);

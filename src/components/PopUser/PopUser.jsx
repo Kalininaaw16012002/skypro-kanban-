@@ -7,7 +7,6 @@ const PopUser = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate(); 
   const { user, logout, isAuth } = useContext(AuthContext);
-  console.log('isAuth в PopUser:', isAuth);
 
   const handleLogout = () => {
     navigate('/sign-in'); 
