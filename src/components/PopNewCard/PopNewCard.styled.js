@@ -41,12 +41,12 @@ export const SPopNewCardContainer = styled.div`
 export const SPopNewCardBlock = styled.div`
     display: block;
     margin: 0 auto;
-    background-color: #FFFFFF;
+    background-color: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};;
     max-width: 630px;
     width: 100%;
     padding: 40px 30px 48px;
     border-radius: 10px;
-    border: 0.7px solid #D4DBE5;
+    border: 0.7px solid ${({ $isDark }) => ($isDark ? "rgba(78, 85, 102, 1)" : "#D4DBE5")};
     position: relative;
 
     @media screen and (max-width: 660px) {
@@ -64,7 +64,7 @@ export const SPopNewCardContent = styled.div`
 `;
 
 export const SPopNewCardTtl = styled.h3`
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
@@ -202,7 +202,7 @@ export const SPopNewCardFormCreate = styled.button`
 `;
 
 export const SPopNewCardFormSubttl = styled.label`
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -211,7 +211,7 @@ export const SPopNewCardFormSubttl = styled.label`
 export const SPopNewCardFormCalendarttl = styled.p`
     margin-bottom: 14px;
     padding: 0 7px;
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -223,7 +223,7 @@ export const SPopNewCardFormCalendarttl = styled.p`
 
 export const SPopNewCardFormCategoriesttl = styled.p`
     margin-bottom: 14px;
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;

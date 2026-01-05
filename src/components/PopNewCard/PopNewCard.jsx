@@ -2,6 +2,7 @@ import Calendar from "../Calendar/Calendar.jsx";
 import { useState } from "react";
 import { addTask } from "../../services/api.js";
 import { SPopNewCard, SPopNewCardBlock, SPopNewCardCalendar, SPopNewCardCategories, SPopNewCardClose, SPopNewCardContainer, SPopNewCardContent, SPopNewCardForm, SPopNewCardFormArea, SPopNewCardFormBlock, SPopNewCardFormCalendarttl, SPopNewCardFormCategoriesttl, SPopNewCardFormCreate, SPopNewCardFormInput, SPopNewCardFormSubttl, SPopNewCardTtl, SPopNewCardWrap } from "./PopNewCard.styled.js";
+import { useTheme } from "styled-components";
 
 const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -11,6 +12,7 @@ const categories = [
 
 
 const PopNewCard = ({ onClose, onRefreshTasks }) => {
+  const { isDark, toggleTheme } = useTheme();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Research'); 
@@ -37,9 +39,9 @@ const handleCreate = async () => {
   return (
     <SPopNewCard id="popNewCard">
       <SPopNewCardContainer>
-        <SPopNewCardBlock>
+        <SPopNewCardBlock $isDark={isDark} >
           <SPopNewCardContent>
-            <SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
+            <SPopNewCardTtl $isDark={isDark}>Создание задачи</SPopNewCardTtl>
             <SPopNewCardClose onClick={onClose}>
               &#10006;
             </SPopNewCardClose>
@@ -49,7 +51,7 @@ const handleCreate = async () => {
                 action="#"
               >
                 <SPopNewCardFormBlock>
-                  <SPopNewCardFormSubttl htmlFor ="formTitle">
+                  <SPopNewCardFormSubttl $isDark={isDark} htmlFor ="formTitle">
                     Название задачи
                   </SPopNewCardFormSubttl>
                   <SPopNewCardFormInput
@@ -63,7 +65,7 @@ const handleCreate = async () => {
                   ></SPopNewCardFormInput>
                 </SPopNewCardFormBlock>
                 <SPopNewCardFormBlock>
-                  <SPopNewCardFormSubttl htmlFor ="textArea">
+                  <SPopNewCardFormSubttl $isDark={isDark} htmlFor ="textArea">
                     Описание задачи
                   </SPopNewCardFormSubttl>
                   <SPopNewCardFormArea
@@ -76,7 +78,7 @@ const handleCreate = async () => {
                 </SPopNewCardFormBlock>
               </SPopNewCardForm>
               <SPopNewCardCalendar className="pop-new-card__calendar calendar">
-                <SPopNewCardFormCalendarttl>Даты</SPopNewCardFormCalendarttl>
+                <SPopNewCardFormCalendarttl $isDark={isDark}>Даты</SPopNewCardFormCalendarttl>
                 <Calendar
                   editable={true}
                   date={selectedDate}
@@ -85,7 +87,7 @@ const handleCreate = async () => {
               </SPopNewCardCalendar>
             </SPopNewCardWrap>
             <SPopNewCardCategories>
-              <SPopNewCardFormCategoriesttl>Категория</SPopNewCardFormCategoriesttl>
+              <SPopNewCardFormCategoriesttl $isDark={isDark}>Категория</SPopNewCardFormCategoriesttl>
               {categories.map((cat) => (
           <div
             key={cat.name}
