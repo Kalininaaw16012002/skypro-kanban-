@@ -2,11 +2,6 @@ import axios from 'axios';
 
 const API_URL = "https://wedev-api.sky.pro/api/user";
 
-function getAuthHeaders() {
-  const token = localStorage.getItem('authToken');
-  return token ? { Authorization: `Bearer ${token}` } : {};
-}
-
 export async function signIn({ login, password }, setIsAuth) {
   try {
     const response = await axios.post(`${API_URL}/login`, { login, password }, {
@@ -15,7 +10,7 @@ export async function signIn({ login, password }, setIsAuth) {
       },
     });
     const token = response.data.user.token;
-    localStorage.setItem('authToken', token); // сохраняем токен в localStorage
+    localStorage.setItem('authToken', token); 
     setIsAuth(true);
     return response.data.user;
   } catch (error) {

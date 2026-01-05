@@ -3,14 +3,12 @@ import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainC
 
 const Column = ({ tasks, onTaskClick }) => {
 
-  // Функция для фильтрации задач по статусу
   const getCardsByStatus = (status) => {
     return tasks.filter(task => task.status === status);
   };
 
   return (
     <SMainContent>
-      {/* Колонка "Без статуса" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>Без статуса</SMainColumnTitleText>
@@ -22,7 +20,6 @@ const Column = ({ tasks, onTaskClick }) => {
         </SMainCards>
       </SMainColumn>
 
-      {/* Колонка "Нужно сделать" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>Нужно сделать</SMainColumnTitleText>
@@ -34,7 +31,6 @@ const Column = ({ tasks, onTaskClick }) => {
         </SMainCards>
       </SMainColumn>
 
-      {/* Колонка "В работе" */}
       <SMainColumn className="column">
         <SMainColumnTitle>
           <SMainColumnTitleText>В работе</SMainColumnTitleText>
@@ -46,7 +42,6 @@ const Column = ({ tasks, onTaskClick }) => {
         </SMainCards>
       </SMainColumn>
 
-      {/* Колонка "Тестирование" */}
       <SMainColumn>
         <SMainColumnTitle>
           <SMainColumnTitleText>Тестирование</SMainColumnTitleText>
@@ -58,7 +53,6 @@ const Column = ({ tasks, onTaskClick }) => {
         </SMainCards>
       </SMainColumn>
 
-      {/* Колонка "Готово" */}
       <SMainColumn>
         <SMainColumnTitle>
           <SMainColumnTitleText>Готово</SMainColumnTitleText>

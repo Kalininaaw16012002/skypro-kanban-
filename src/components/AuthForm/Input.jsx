@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Создаем стилизованные компоненты
 const StyledInput = styled.input`
   width: 100%;
   outline: none;

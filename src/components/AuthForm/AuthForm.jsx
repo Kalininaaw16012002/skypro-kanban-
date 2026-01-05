@@ -10,14 +10,12 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext); 
 
-  // состояние полей
   const [formData, setFormData] = useState({
     name: "",
     login: "",
     password: "",
   });
 
-  // ошибки полей
   const [errors, setErrors] = useState({
     name: "",
     login: "",
@@ -27,7 +25,6 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // функция валидации
   const validateForm = () => {
     const newErrors = { name: "", login: "", password: "" };
     let isValid = true;
@@ -51,18 +48,16 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
     return isValid;
   };
 
-  // обработчик изменения поля
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: "" })); // очищаем ошибку при изменении
+    setErrors(prev => ({ ...prev, [name]: "" })); 
   };
 
-  // отправка формы
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
-      return; // если валидация не прошла, не продолжаем
+      return; 
     }
     setIsLoading(true); 
     setError("");

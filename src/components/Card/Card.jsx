@@ -1,5 +1,4 @@
 import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
-import { CardList, colorStyles } from "../../data";
 import { Link, useNavigate } from "react-router-dom";
 
 const formatDate = (dateStr) => {
@@ -43,7 +42,6 @@ export const Card = ({ id,title, date, topic, onClick}) => {
             <SCardsTitle>{title}</SCardsTitle>
           </Link>
           <SCardsDate>
-            {/* SVG и дата */}
             <SCardsDateSvg
               xmlns="http://www.w3.org/2000/svg"
               width="13"

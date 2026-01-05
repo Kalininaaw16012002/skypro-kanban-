@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 const PopUser = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate(); 
-  const { user, logout, isAuth } = useContext(AuthContext);
+  const { user, logout} = useContext(AuthContext);
 
   const handleLogout = () => {
     navigate('/sign-in'); 

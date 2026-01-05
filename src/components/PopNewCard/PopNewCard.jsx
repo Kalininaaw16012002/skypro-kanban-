@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import Calendar from "../Calendar/Calendar.jsx";
 import { useState } from "react";
 import { addTask } from "../../services/api.js";
+import { SPopNewCard, SPopNewCardBlock, SPopNewCardCalendar, SPopNewCardCategories, SPopNewCardClose, SPopNewCardContainer, SPopNewCardContent, SPopNewCardForm, SPopNewCardFormArea, SPopNewCardFormBlock, SPopNewCardFormCalendarttl, SPopNewCardFormCategoriesttl, SPopNewCardFormCreate, SPopNewCardFormInput, SPopNewCardFormSubttl, SPopNewCardTtl, SPopNewCardWrap } from "./PopNewCard.styled.js";
 
 const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -35,26 +35,24 @@ const handleCreate = async () => {
 };
 
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link className="pop-new-card__close" onClick={onClose}>
+    <SPopNewCard id="popNewCard">
+      <SPopNewCardContainer>
+        <SPopNewCardBlock>
+          <SPopNewCardContent>
+            <SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
+            <SPopNewCardClose onClick={onClose}>
               &#10006;
-            </Link>
-            <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
+            </SPopNewCardClose>
+            <SPopNewCardWrap>
+              <SPopNewCardForm
                 id="formNewCard"
                 action="#"
               >
-                <div className="form-new__block">
-                  <label htmlFor ="formTitle" className="subttl">
+                <SPopNewCardFormBlock>
+                  <SPopNewCardFormSubttl htmlFor ="formTitle">
                     Название задачи
-                  </label>
-                  <input
-                    className="form-new__input"
+                  </SPopNewCardFormSubttl>
+                  <SPopNewCardFormInput
                     type="text"
                     name="name"
                     id="formTitle"
@@ -62,33 +60,32 @@ const handleCreate = async () => {
                     autoFocus
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                  ></input>
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor ="textArea" className="subttl">
+                  ></SPopNewCardFormInput>
+                </SPopNewCardFormBlock>
+                <SPopNewCardFormBlock>
+                  <SPopNewCardFormSubttl htmlFor ="textArea">
                     Описание задачи
-                  </label>
-                  <textarea
-                    className="form-new__area"
+                  </SPopNewCardFormSubttl>
+                  <SPopNewCardFormArea
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
-                </div>
-              </form>
-              <div className="pop-new-card__calendar calendar">
-                <p className="calendar__ttl subttl">Даты</p>
+                  ></SPopNewCardFormArea>
+                </SPopNewCardFormBlock>
+              </SPopNewCardForm>
+              <SPopNewCardCalendar className="pop-new-card__calendar calendar">
+                <SPopNewCardFormCalendarttl>Даты</SPopNewCardFormCalendarttl>
                 <Calendar
                   editable={true}
                   date={selectedDate}
                   onChange={(newDate) => setSelectedDate(newDate)}
                 />
-              </div>
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
+              </SPopNewCardCalendar>
+            </SPopNewCardWrap>
+            <SPopNewCardCategories>
+              <SPopNewCardFormCategoriesttl>Категория</SPopNewCardFormCategoriesttl>
               {categories.map((cat) => (
           <div
             key={cat.name}
@@ -98,14 +95,14 @@ const handleCreate = async () => {
             <p className={cat.className}>{cat.name}</p>
           </div>
         ))}
-            </div>
-            <button className="form-new__create _hover01" id="btnCreate" onClick={handleCreate}>
+            </SPopNewCardCategories>
+            <SPopNewCardFormCreate className=" _hover01" id="btnCreate" onClick={handleCreate}>
               Создать задачу
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </SPopNewCardFormCreate>
+          </SPopNewCardContent>
+        </SPopNewCardBlock>
+      </SPopNewCardContainer>
+    </SPopNewCard>
   );
 };
 

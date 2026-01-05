@@ -18,17 +18,15 @@ const Calendar = ({ date, onChange }) => {
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayWeekday = new Date(currentYear, currentMonth, 1).getDay();
-  const startOffset = (firstDayWeekday + 6) % 7; // Понедельник = 0
+  const startOffset = (firstDayWeekday + 6) % 7; 
 
   const generateCalendarDays = () => {
     const days = [];
 
-    // Пустые ячейки для начала месяца
     for (let i = 0; i < startOffset; i++) {
       days.push(null);
     }
 
-    // Дни текущего месяца
     for (let d = 1; d <= daysInMonth; d++) {
       days.push(d);
     }
