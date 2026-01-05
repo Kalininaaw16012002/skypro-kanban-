@@ -6,13 +6,16 @@ import NotFound from '../pages/NotFound';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import PrivateRoute from './PrivateRoute';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ExitPage from '../pages/ExitPage';
+import { TaskContext } from '../context/TaskContext';
+import { AuthContext } from '../context/AuthContext';
 
 
 function AppRoutes() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { isAuth, setIsAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const { loadTasks } = useContext(TaskContext);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -20,15 +23,17 @@ function AppRoutes() {
   }, []);
 
   return (
-    <Routes>
-    <Route element={<PrivateRoute isAuth = {isAuth} />}>
-        <Route path="/" element={<MainPage loading={loading}/>} />     
-        <Route path="/add-task" element={<AddTaskPage />} />
-        <Route path="/edit-task/:id" element={<EditTaskPage />} />
-        <Route path="/exit/:action" element={<ExitPage setIsAuth={setIsAuth} />} />
-    </Route>
+     <Routes>
+      <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route element={<MainPage loading={loading} />}>
+          <Route path="/" element={<div />} />
+          <Route path="/add-task" element={<AddTaskPage />} />
+          <Route path="/edit-task/:id" element={<EditTaskPage />} />
+          <Route path="/exit/:action" element={<ExitPage setIsAuth={setIsAuth} />} />
+        </Route>
+      </Route>
 
-      <Route path="/sign-in" element={<LoginPage setIsAuth = {setIsAuth}/>} />
+      <Route path="/sign-in" element={<LoginPage setIsAuth={setIsAuth} loadTasks={loadTasks} />} />
       <Route path="/sign-up" element={<RegisterPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

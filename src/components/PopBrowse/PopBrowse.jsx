@@ -1,7 +1,9 @@
-    import { useEffect, useState } from "react";
-    import Calendar from "../Calendar/Calendar.jsx";
-    import { Link, useNavigate } from "react-router-dom";
-    import { deleteTask, fetchTaskById, updateTask } from "../../services/api.js";
+import { useContext, useEffect, useState } from "react";
+import Calendar from "../Calendar/Calendar.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteTask, updateTask } from "../../services/api.js";
+import { TaskContext } from "../../context/TaskContext.js";
+import { SPopBrowse, SPopBrowseBlock, SPopBrowseContainer, SPopBrowseContent, SPopBrowseTopBlock, SPopBrowseTtl } from "./PopBrowse.styled.js";
 
     const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -10,7 +12,8 @@
 ];
 
   const PopBrowse = ({ taskId, onClose, onTaskDeleted }) => {
-  const [task, setTask] = useState(null);
+    const { tasks, deleteTaskFromState, updateTaskInState } = useContext(TaskContext);
+    const [task, setTask] = useState(null);
     const [originalTask, setOriginalTask] = useState(null); // для отмены
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -21,23 +24,21 @@
     const category = task ? categories.find(cat => cat.name === task.topic) : null;
     const categoryClass = category ? category.className : '_orange';
 
-    useEffect(() => {
-      if (taskId) {
-        fetchTaskById(taskId)
-          .then((data) => {
-            setTask(data);
-            setOriginalTask(data);
-            setLoading(false);
-          })
-          .catch((err) => {
-            setError(err.message);
-            setLoading(false);
-          });
+useEffect(() => {
+    if (taskId && tasks.length > 0) {
+      const foundTask = tasks.find(t => t._id === taskId);
+      if (foundTask) {
+        setTask(foundTask);
+        setOriginalTask(foundTask);
+        setLoading(false);
+      } else {
+        setError('Задача не найдена');
+        setLoading(false);
       }
-    }, [taskId]);
+    }
+  }, [taskId, tasks]);
 
   const handleDelete = async () => {
-    console.log('Начинаю удаление задачи с id:', task?._id);
     if (!task || !task._id) {
       alert('Некорректный id задачи');
       return;
@@ -45,17 +46,10 @@
     if (window.confirm('Вы действительно хотите удалить задачу?')) {
       try {
         await deleteTask(task._id);
-        console.log('Задача успешно удалена');
-        if (onTaskDeleted) {
-          console.log('Обновляем список задач');
-          onTaskDeleted();
-        }
-        if (onClose) {
-        console.log('Вызов onClose()');
-        onClose();
-      }
+        deleteTaskFromState(task._id);
+        if (onTaskDeleted) onTaskDeleted();
+        if (onClose) onClose();
       } catch (err) {
-        console.error('Ошибка при удалении:', err);
         alert('Ошибка при удалении задачи');
       }
     }
@@ -76,33 +70,23 @@
     };
 
 const handleSave = async () => {
-  console.log('Отправляем данные для обновления:', task);
-  try {
-    const updatedTask = { ...task, date: selectedDate || task.date };
-    const response = await updateTask(task._id, updatedTask);
-    if (response) {
-      setTask(response);
-      setOriginalTask(response);
+    try {
+      const updatedTaskData = { ...task, date: task.date };
+      const response = await updateTask(task._id, updatedTaskData);
+      if (response) {
+        updateTaskInState(response);
+      }
+      if (onTaskDeleted) onTaskDeleted();
+      if (onClose) onClose();
+    } catch (err) {
+      alert('Ошибка при сохранении изменений');
     }
-    if (onClose) {
-      console.log('Вызов onClose()');
-      onClose();
-    }
-    setIsEditing(false);
-  } catch (err) {
-    console.error('Ошибка при сохранении:', err);
-    alert('Ошибка при сохранении изменений');
-  }
-};
+  };
 
     const handleChange = (field, value) => {
       setTask(prev => ({ ...prev, [field]: value }));
     };
-
-      if (loading) {
-      return <div>Загрузка...</div>;
-    }
-
+    
     if (error) {
       return <div>Ошибка: {error}</div>;
     }
@@ -112,17 +96,17 @@ const handleSave = async () => {
     }
 
       return (
-        <div className="pop-browse" id="popBrowse">
-          <div className="pop-browse__container">
-            <div className="pop-browse__block">
-              <div className="pop-browse__content">
-                <div className="pop-browse__top-block">
-                  <h3 className="pop-browse__ttl">{task.title}</h3>
+        <SPopBrowse id="popBrowse">
+          <SPopBrowseContainer>
+            <SPopBrowseBlock>
+              <SPopBrowseContent>
+                <SPopBrowseTopBlock>
+                  <SPopBrowseTtl>{task.title}</SPopBrowseTtl>
                   <div className={`categories__theme theme-top ${categoryClass} _active-category`}>
                   <p className={categoryClass}>{task.topic || 'Без названия'}</p>
                   </div>
-                  </div>
-                </div>
+                  </SPopBrowseTopBlock>
+                </SPopBrowseContent>
                 <div className="pop-browse__status status">
                   <p className="status__p subttl">Статус</p>
                   <div className="status__themes">
@@ -204,9 +188,9 @@ const handleSave = async () => {
                     <Link>Закрыть</Link>
                   </button>
                 </div>
-              </div>
-            </div>
-          </div>
+              </SPopBrowseBlock>
+            </SPopBrowseContainer>
+          </SPopBrowse>
       );
     };
 

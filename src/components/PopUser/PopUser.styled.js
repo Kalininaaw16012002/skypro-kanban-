@@ -107,7 +107,7 @@ export const SPopExit = styled.div`
   height: 100%;
   min-width: 320px;
   min-height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
@@ -223,6 +223,8 @@ export const SPopExitNo = styled.button`
 @media only screen and (max-width: 375px) {
     width: 100%;
     height: 40px;
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 `;
 
@@ -234,7 +236,7 @@ export const SPopExitNoA = styled.a`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-  color: #FFFFFF;
-}
+  &:hover {
+    color: #FFFFFF;
+  }
 `;

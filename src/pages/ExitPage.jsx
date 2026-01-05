@@ -1,22 +1,14 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-function ExitPage({ setIsAuth }) {
-  const { action } = useParams();
-  const navigate = useNavigate();
+const ExitPage = ({ setIsAuth }) => {
+  const { logout } = useContext(AuthContext);
 
   useEffect(() => {
-    if (action === 'logout') {
-      setIsAuth(false);
-      navigate('/sign-in');
-    }
-  }, [action, setIsAuth, navigate]);
+    logout();
+  }, []);
 
-  return (
-    <div>
-      {action === 'logout' ? 'Вы вышли из аккаунта...' : 'Обработка...'}
-    </div>
-  );
-}
+  return <div>Вы вышли из системы</div>;
+};
 
 export default ExitPage;
