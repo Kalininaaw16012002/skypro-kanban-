@@ -4,14 +4,14 @@ const StyledInput = styled.input`
   width: 100%;
   outline: none;
   padding: 8px 10px 8px 10px;
-  background-color: white;
+  background-color: transparent;
   box-sizing: border-box;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 0.7px solid rgba(148, 166, 190, 0.4); 
   border-radius: 8px;
   font-size: 14px;
 
   &::placeholder {
-    color: rgba(148, 166, 190, 1);
+    color: rgba(148, 166, 190, 1); 
   }
 `;
 

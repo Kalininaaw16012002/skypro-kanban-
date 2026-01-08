@@ -39,12 +39,12 @@ export const SPopBrowseContainer = styled.div`
 export const SPopBrowseBlock = styled.div`
     display: block;
     margin: 0 auto;
-    background-color: #FFFFFF;
+    background-color: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};
     max-width: 630px;
     width: 100%;
     padding: 40px 30px 38px;
     border-radius: 10px;
-    border: 0.7px solid #D4DBE5;
+    border: 0.7px solid ${({ $isDark }) => ($isDark ? "rgba(78, 85, 102, 1)" : "#D4DBE5")};
     position: relative;
 
     @media screen and (max-width: 660px) {
@@ -119,7 +119,7 @@ export const SPopBrowseTopBlock = styled.div`
 `;
 
 export const SPopBrowseTtl = styled.h3`
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
@@ -131,7 +131,7 @@ export const SPopBrowseStatus = styled.div`
 
 export const SPopBrowseStatusTtl = styled.p`
     margin-bottom: 14px;
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -147,6 +147,7 @@ export const SPopBrowseStatusThemes = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   color: #94A6BE;
+  background-color:  ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -159,7 +160,7 @@ export const SPopBrowseStatusThemes = styled.div`
 
   .status__theme._active {
   background-color: #94A6BE; 
-  color: #fff;
+  color: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};
   border-color: #94A6BE;
 }
 `;
@@ -167,10 +168,14 @@ export const SPopBrowseStatusThemes = styled.div`
 export const SPopBrowseStatusTheme = styled.div`
     border-radius: 24px;
     border: 0.7px solid rgba(148, 166, 190, 0.4);
-    color: #94A6BE;
+    color: "#94A6BE";
     padding: 11px 14px 10px;
     margin-right: 7px;
     margin-bottom: 7px;
+
+    ._gray{
+      color: ${({ $isDark }) => ($isDark ? "#000": "#fff")};
+    }
 `;
 
 export const SPopBrowseWrap = styled.div`
@@ -200,7 +205,7 @@ export const SPopBrowseFormBlock = styled.div`
 `;
 
 export const SPopBrowseFormSubttl = styled.label`
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -211,7 +216,7 @@ export const SPopBrowseFormArea = styled.textarea`
     width: 100%;
     outline: none;
     padding: 14px;
-    background: #EAEEF6;
+    background: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};
     border: 0.7px solid rgba(148, 166, 190, 0.4);
     border-radius: 8px;
     font-size: 14px;
@@ -219,6 +224,7 @@ export const SPopBrowseFormArea = styled.textarea`
     letter-spacing: -0.14px;
     margin-top: 14px;
     height: 200px;
+    color: rgba(148, 166, 190, 1);
 
     &::placeholder{
     font-weight: 400;
@@ -272,7 +278,7 @@ export const SPopBrowseFormCalendar = styled.div`
 export const SPopBrowseFormCalendarttl = styled.p`
     margin-bottom: 14px;
     padding: 0 7px;
-    color: #000;
+    color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -300,7 +306,7 @@ export const PopBrowseContainer = styled.div`
     height: 30px;
     margin-right: 8px;
     border-radius: 4px;
-    border: 0.7px solid var(--palette-navy-60, #565EEF);
+    border: 0.7px solid var(--palette-navy-60, ${({ $isDark }) => ($isDark ? "#FFF" : "#565EEF")});
     outline: none;
     padding: 0 12px;
     font-size: 14px;
@@ -309,7 +315,7 @@ export const PopBrowseContainer = styled.div`
 
     &._btn-bor {
       background: transparent;
-      color: #565EEF;
+      color: ${({ $isDark }) => ($isDark ? "#FFF" : "#565EEF")};
 
       &:hover {
         background-color: rgba(86, 94, 239, 0.1);
@@ -317,10 +323,11 @@ export const PopBrowseContainer = styled.div`
     }
 
     &._hover03:hover {
-      background-color: rgba(86, 94, 239, 0.1);
+      background-color: rgba(86, 94, 239, 1);
+      color: ${({ $isDark }) => ($isDark ?"#FFF":  "#565EEF" )};
+      border: 0.7px solid var(--palette-navy-60, "#565EEF");
     }
   }
-
   .close-button {
     display: flex;
     align-items: center;

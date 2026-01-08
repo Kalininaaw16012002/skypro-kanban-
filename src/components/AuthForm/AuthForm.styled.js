@@ -6,7 +6,7 @@ export const SBg = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(234, 238, 246, 1);
+  background:  ${({ $isDark }) => ($isDark ? "rgba(21, 20, 25, 1)": "rgba(234, 238, 246, 1)" )};
 `;
 
 export const SModal = styled.div`
@@ -23,11 +23,11 @@ export const SModal = styled.div`
 export const SWrapper = styled.div`
 display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ $isDark }) => ($isDark ? "rgba(32, 32, 44, 1)": "#fff" )};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
-    border: 0.7px solid rgba(212, 219, 229, 1);
+    border: 0.7px solid ${({ $isDark }) => ($isDark ? "rgba(78, 85, 102, 1)": "rgba(212, 219, 229, 1)" )};
     border-radius: 10px;
     box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 `;
@@ -40,6 +40,7 @@ export const STitle = styled.h2`
   line-height: 30px;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
+  color: ${({ $isDark }) => ($isDark ? "#fff": "#000" )};
 `;
 
 export const SInputWrapper = styled.div`

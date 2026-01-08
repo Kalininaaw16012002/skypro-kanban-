@@ -4,7 +4,8 @@ import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
 import PopBrowse from "../PopBrowse/PopBrowse.jsx";
 import { TaskContext } from "../../context/TaskContext.js";
-import { useTheme } from "../../context/ThemeContext.jsx";
+import { useTheme } from "styled-components";
+
 
 
 export const Main = () => {
@@ -32,7 +33,7 @@ const handleTaskDeleted = async () => {
       <SContainer>
         <SMainBlock>
           {isLoading ? (
-            <SMainLoading>Данные загружаются</SMainLoading>
+            <SMainLoading $isDark={isDark}>Данные загружаются</SMainLoading>
           ) : (
             <Column tasks={tasks} onClick={handleTaskClick}  />
           )}

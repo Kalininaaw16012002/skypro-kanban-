@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteTask, updateTask } from "../../services/api.js";
 import { TaskContext } from "../../context/TaskContext.js";
 import { PopBrowseContainer, SPopBrowse, SPopBrowseBlock, SPopBrowseCalendar, SPopBrowseContainer, SPopBrowseContent, SPopBrowseForm, SPopBrowseFormArea, SPopBrowseFormBlock, SPopBrowseFormCalendarttl, SPopBrowseFormSubttl, SPopBrowseStatus, SPopBrowseStatusTheme, SPopBrowseStatusThemes, SPopBrowseStatusTtl, SPopBrowseTopBlock, SPopBrowseTtl, SPopBrowseWrap } from "./PopBrowse.styled.js";
+import { useTheme } from "styled-components";
 
     const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -12,6 +13,7 @@ import { PopBrowseContainer, SPopBrowse, SPopBrowseBlock, SPopBrowseCalendar, SP
 ];
 
   const PopBrowse = ({ taskId, onClose, onTaskDeleted }) => {
+    const { isDark, toggleTheme } = useTheme();
     const { tasks, deleteTaskFromState, updateTaskInState } = useContext(TaskContext);
     const [task, setTask] = useState(null);
     const [originalTask, setOriginalTask] = useState(null); 
@@ -97,18 +99,18 @@ const handleSave = async () => {
       return (
         <SPopBrowse id="popBrowse">
           <SPopBrowseContainer>
-            <SPopBrowseBlock>
+            <SPopBrowseBlock $isDark={isDark}>
               <SPopBrowseContent>
                 <SPopBrowseTopBlock>
-                  <SPopBrowseTtl>{task.title}</SPopBrowseTtl>
+                  <SPopBrowseTtl $isDark={isDark}>{task.title}</SPopBrowseTtl>
                   <div className={`categories__theme theme-top ${categoryClass} _active-category`}>
                   <p className={categoryClass}>{task.topic || 'Без названия'}</p>
                   </div>
                   </SPopBrowseTopBlock>
                 </SPopBrowseContent>
                 <SPopBrowseStatus>
-                  <SPopBrowseStatusTtl>Статус</SPopBrowseStatusTtl>
-                  <SPopBrowseStatusThemes>
+                  <SPopBrowseStatusTtl $isDark={isDark}>Статус</SPopBrowseStatusTtl>
+                  <SPopBrowseStatusThemes $isDark={isDark}>
                     {isEditing ? (
                     <div className="status__themes status__themes--inline">
                       {[
@@ -118,7 +120,7 @@ const handleSave = async () => {
                         'Тестирование',
                         'Готово'
                       ].map((statusOption) => (
-                        <button
+                        <button 
                           key={statusOption}
                           type="button"
                           className={`status__theme ${
@@ -131,8 +133,8 @@ const handleSave = async () => {
                       ))}
                     </div>
                   ) : (
-                    <SPopBrowseStatusTheme className=" _gray">
-                    <p className="_gray">{task.status}</p>
+                    <SPopBrowseStatusTheme $isDark={isDark} className=" _gray">
+                    <p $isDark={isDark} className="_gray">{task.status}</p>
                   </SPopBrowseStatusTheme>
                   )}
                   </SPopBrowseStatusThemes>
@@ -140,16 +142,16 @@ const handleSave = async () => {
                 <SPopBrowseWrap>
                   <SPopBrowseForm id="formBrowseCard" action="#">
                     <SPopBrowseFormBlock>
-                      <SPopBrowseFormSubttl htmlFor="textArea01">Описание задачи</SPopBrowseFormSubttl>
+                      <SPopBrowseFormSubttl $isDark={isDark} htmlFor="textArea01">Описание задачи</SPopBrowseFormSubttl>
                       {isEditing ? (
-                      <SPopBrowseFormArea
+                      <SPopBrowseFormArea $isDark={isDark}
                         name="text"
                         id="textArea01"
                         value={task.description}
                         onChange={(e) => handleChange('description', e.target.value)}
                       />
                     ) : (
-                      <SPopBrowseFormArea
+                      <SPopBrowseFormArea $isDark={isDark}
                         name="text"
                         id="textArea01"
                         readOnly
@@ -159,7 +161,7 @@ const handleSave = async () => {
                     </SPopBrowseFormBlock>
                   </SPopBrowseForm>
                   <SPopBrowseCalendar className="pop-new-card__calendar calendar">
-                  <SPopBrowseFormCalendarttl>Даты</SPopBrowseFormCalendarttl>
+                  <SPopBrowseFormCalendarttl $isDark={isDark}>Даты</SPopBrowseFormCalendarttl>
                                     <Calendar
                     editable={isEditing}
                     date={selectedDate}
@@ -167,17 +169,17 @@ const handleSave = async () => {
                   />
                 </SPopBrowseCalendar>
                 </SPopBrowseWrap>
-                <PopBrowseContainer>
-                  <div className="btn-group">
+                <PopBrowseContainer $isDark={isDark}>
+                  <div className="btn-group" $isDark={isDark}>
                     {isEditing ? (
                     <>
-                      <button className="_btn-bor _hover03" onClick={handleSave}>Сохранить</button>
-                      <button className="_btn-bor _hover03" onClick={handleCancel}>Отмена</button>
+                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleSave}>Сохранить</button>
+                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleCancel}>Отмена</button>
                     </>
                     ) : (
-                      <button className="_btn-bor _hover03" onClick={handleEdit}>Редактировать задачу</button>
+                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleEdit}>Редактировать задачу</button>
                     )}
-                      <button className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
+                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
                   </div>
                   <button className="close-button" onClick={handleClose}>
                     <a>Закрыть</a>

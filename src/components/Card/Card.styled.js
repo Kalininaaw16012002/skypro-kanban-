@@ -29,6 +29,7 @@ export const SCardsCard = styled.div`
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
+  background: ${({ $isDark }) => ($isDark ? "rgba(32, 32, 44, 1)":"#FFF")};
 
   @media screen and (max-width: 1200px) {
     width: 220px;
@@ -57,7 +58,7 @@ export const SCardsTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-
+  
 `;
 
 export const SCardsText = styled.p`
@@ -96,6 +97,7 @@ export const SCardsTitle = styled.h3`
   line-height: 18px;
   color: #000000;
   margin-bottom: 10px;
+  color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )}
 `;
 
 export const SCardsDate = styled.div`

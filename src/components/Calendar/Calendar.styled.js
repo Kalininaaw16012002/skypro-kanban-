@@ -138,5 +138,5 @@ export const SCalendarDateEnd = styled.p`
 `;
 
 export const SCalendarDateControl = styled.span`
-  color: #000000;
+ color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )}
 `;

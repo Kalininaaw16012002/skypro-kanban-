@@ -41,7 +41,7 @@ export const SPopNewCardContainer = styled.div`
 export const SPopNewCardBlock = styled.div`
     display: block;
     margin: 0 auto;
-    background-color: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};;
+    background-color: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};
     max-width: 630px;
     width: 100%;
     padding: 40px 30px 48px;

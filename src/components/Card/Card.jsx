@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,12 +11,13 @@ const formatDate = (dateStr) => {
 };
 
 const categoryClassNames = {
-  'Web Design': '_orange',
+  'Web Design': '_orange',    
   'Research': '_green',
   'Copywriting': '_purple',
 };
 
 export const Card = ({ id,title, date, topic, onClick}) => {
+    const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -24,10 +26,10 @@ export const Card = ({ id,title, date, topic, onClick}) => {
 
   return (
     <SCardsItem>
-      <SCardsCard className="card" onClick={onClick} style={{ cursor: 'pointer' }}>
+      <SCardsCard $isDark={isDark} className="card" onClick={onClick} style={{ cursor: 'pointer' }}>
         <SCardsGroup>
           {topic && (
-            <SCardsTheme className={categoryClassNames[topic]}>
+            <SCardsTheme $isDark={isDark} className={categoryClassNames[topic]}>
             <SCardsText>{topic}</SCardsText>
             </SCardsTheme>
           )}
@@ -39,7 +41,7 @@ export const Card = ({ id,title, date, topic, onClick}) => {
         </SCardsGroup>
         <SCardsContent>
           <Link target="_blank">
-            <SCardsTitle>{title}</SCardsTitle>
+            <SCardsTitle $isDark={isDark}>{title}</SCardsTitle>
           </Link>
           <SCardsDate>
             <SCardsDateSvg

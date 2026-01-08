@@ -5,8 +5,10 @@ import { SBg, SFormGroup, SFormGroupP, SInputWrapper, SModal, STitle, SWrapper }
 import { useContext, useState } from "react";
 import { signIn, signUp } from "../../services/auth";
 import { AuthContext } from "../../context/AuthContext";
+import { useTheme } from "styled-components";
 
 const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext); 
 
@@ -83,14 +85,14 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
   };
 
   return (
-    <SBg>
+    <SBg $isDark={isDark}>
       <SModal>
-        <SWrapper>
-          <STitle>{isSignUp ? "Регистрация" : "Вход"}</STitle>
+        <SWrapper $isDark={isDark}>
+          <STitle $isDark={isDark}>{isSignUp ? "Регистрация" : "Вход"}</STitle>
           <form className="form" id="form" onSubmit={handleSubmit}>
             <SInputWrapper>
               {isSignUp && (
-                <BaseInput
+                <BaseInput $isDark={isDark}
                   error={errors.name}
                   type="text"
                   name="name"
@@ -101,7 +103,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
                   disabled={isLoading}
                 />
               )}
-              <BaseInput
+              <BaseInput $isDark={isDark}
                 error={errors.login}
                 type="text"
                 name="login"
@@ -111,7 +113,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
                 onChange={handleChange}
                 disabled={isLoading}
               />
-              <BaseInput
+              <BaseInput $isDark={isDark}
                 error={errors.password}
                 type="password"
                 name="password"

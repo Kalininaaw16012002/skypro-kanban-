@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { SCalendarBlock, SCalendarCell, SCalendarCells, SCalendarContent, SCalendarDateControl, SCalendarDateEnd, SCalendarDaysName, SCalendarDaysNames, SCalendarMonth, SCalendarNav, SCalendarNavAction, SCalendarNavActions, SCalendarNavActionSvg, SCalendarPeriod } from "./Calendar.styled";
+import { useTheme } from "styled-components";
 
 const Calendar = ({ date, onChange }) => {
+  const { isDark, toggleTheme } = useTheme();
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(() => {
     const initialDate = date ? new Date(date) : new Date();
@@ -135,7 +137,7 @@ const Calendar = ({ date, onChange }) => {
       <SCalendarPeriod>
         <SCalendarDateEnd>
           Срок исполнения:{" "}
-          <SCalendarDateControl>
+          <SCalendarDateControl $isDark={isDark}>
             {`${String(activeDay).padStart(2, "0")}.${String(currentMonth + 1).padStart(2, "0")}.${currentYear}`}
           </SCalendarDateControl>
         </SCalendarDateEnd>
