@@ -266,6 +266,7 @@ export const SPopNewCardCategories = styled.div`
     padding: 8px 20px;
     border-radius: 24px;
     margin-right: 7px;
+    margin-top: 7px;
     opacity: 0.4;
   }
   .categories__theme p {

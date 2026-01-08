@@ -27,9 +27,14 @@ display: block;
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
-    border: 0.7px solid ${({ $isDark }) => ($isDark ? "rgba(78, 85, 102, 1)": "rgba(212, 219, 229, 1)" )};
-    border-radius: 10px;
-    box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  border: 0.7px solid ${({ $isDark }) => ($isDark ? "rgba(78, 85, 102, 1)": "rgba(212, 219, 229, 1)" )};
+  border-radius: 10px;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+
+      @media screen and (max-width: 495px) {
+      border: none;
+      background-color: ${({ $isDark }) => ($isDark ? "rgba(21, 20, 25, 1)": "#fff" )};
+    }
 `;
 
 export const STitle = styled.h2`

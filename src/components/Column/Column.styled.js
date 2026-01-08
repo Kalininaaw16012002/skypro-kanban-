@@ -45,3 +45,4 @@ export const SMainCards = styled.div`
     overflow-y: auto;
   }
 `;
+

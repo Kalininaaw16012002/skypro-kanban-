@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+`;
 
 export const SCardsItem = styled.div`
   position: relative;
@@ -34,7 +43,7 @@ export const SCardsCard = styled.div`
   @media screen and (max-width: 1200px) {
     width: 220px;
     height: 130px;
-    background-color: #FFFFFF;
+    background: ${({ $isDark }) => ($isDark ? "rgba(32, 32, 44, 1)":"#FFF")};
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -58,7 +67,7 @@ export const SCardsTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  
+
 `;
 
 export const SCardsText = styled.p`
@@ -97,7 +106,7 @@ export const SCardsTitle = styled.h3`
   line-height: 18px;
   color: #000000;
   margin-bottom: 10px;
-  color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )}
+  color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
 `;
 
 export const SCardsDate = styled.div`
@@ -116,4 +125,13 @@ export const SCardsDateText = styled.p`
   line-height: 13px;
   color: #94A6BE;
   letter-spacing: 0.2px;
+`;
+
+export const GradientDiv = styled.div`
+  width: 100%;
+  height: 64px; 
+  border-radius: 18px; /* закругление углов */
+  background: linear-gradient(90deg, rgba(193.26, 204.72, 220, 1), rgba(233.02, 237.53, 246.56, 1) 46%, rgba(193, 205, 220, 1));
+  background-size: 200% 100%;
+  animation: ${gradientAnimation} 1.5s infinite ease-in-out;
 `;

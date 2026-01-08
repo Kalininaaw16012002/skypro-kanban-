@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const SMain = styled.main`
   width: 100%;
   min-height: 100vh;
-  background-color: ${({ $isDark }) => ($isDark ? "rgba(21, 20, 25, 1)": "#EAEEF6" )};`;
+  background: ${({ $isDark }) => ($isDark ? "rgba(21, 20, 25, 1)": "#EAEEF6" )};
+`;
 
 export const SMainBlock = styled.div`
   width: 100%;
