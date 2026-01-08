@@ -16,7 +16,7 @@ const categoryClassNames = {
   'Copywriting': '_purple',
 };
 
-export const Card = ({ id,title, date, topic, onClick}) => {
+export const Card = ({ id,title, date, topic, onClick, onDragStart}) => {
     const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
 
@@ -26,7 +26,11 @@ export const Card = ({ id,title, date, topic, onClick}) => {
 
   return (
     <SCardsItem>
-      <SCardsCard $isDark={isDark} className="card" onClick={onClick} style={{ cursor: 'pointer' }}>
+      <SCardsCard $isDark={isDark} className="card" onClick={onClick} style={{ cursor: 'pointer' }} draggable={true}
+        onDragStart={(e) => {
+    console.log("drag start for", id);
+    onDragStart(e, id);
+  }}>
         <SCardsGroup>
           {topic && (
             <SCardsTheme $isDark={isDark} className={categoryClassNames[topic]}>

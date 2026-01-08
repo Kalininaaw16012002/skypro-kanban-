@@ -26,6 +26,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const isFormInvalid = Object.values(errors).some(err => err !== "") || Boolean(error);
 
   const validateForm = () => {
     const newErrors = { name: "", login: "", password: "" };
@@ -54,6 +55,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     setErrors(prev => ({ ...prev, [name]: "" })); 
+    setError('');
   };
 
   const handleSubmit = async (e) => {
@@ -94,6 +96,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
               {isSignUp && (
                 <BaseInput $isDark={isDark}
                   error={errors.name}
+                  hasGlobalError={Boolean(error)}
                   type="text"
                   name="name"
                   id="formname"
@@ -105,6 +108,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
               )}
               <BaseInput $isDark={isDark}
                 error={errors.login}
+                hasGlobalError={Boolean(error)}
                 type="text"
                 name="login"
                 id="formlogin"
@@ -115,6 +119,7 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
               />
               <BaseInput $isDark={isDark}
                 error={errors.password}
+                hasGlobalError={Boolean(error)}
                 type="password"
                 name="password"
                 id="formpassword"
@@ -124,15 +129,27 @@ const AuthForm = ({ isSignUp, setIsAuth, onAuthSuccess }) => {
                 disabled={isLoading}
               />
             </SInputWrapper>
-            {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
-            {errors.login && <p style={{ color: "red" }}>{errors.login}</p>}
-            {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {errors.name && (
+              <div style={{ color: 'red'}}>
+                {errors.name}
+              </div>
+            )}
+            {errors.login  && (
+              <div style={{ color: 'red'}}>
+                {errors.login }
+              </div>
+            )}
+            {errors.password && (
+              <div style={{ color: 'red'}}>
+                {errors.password}
+              </div>
+            )}
+            {error && <p style={{ color: "red"}}>{error}</p>}
             <BaseButton
               type="secondary"
               fullWidth={true}
               text={isSignUp ? "Зарегистрироваться" : "Войти"}
-              disabled={isLoading}
+              disabled={isLoading || isFormInvalid}
             />
 
             {!isSignUp && (

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
@@ -13,6 +13,11 @@ export const Main = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, loadTasks, isLoading } = useContext(TaskContext);
   const { isDark, toggleTheme } = useTheme();
+
+const handleCardDragStart = (e, id) => {
+  console.log("drag start event", id);
+  e.dataTransfer.setData('text/plain', id);
+};
 
   const handleTaskClick = (taskId) => {
     setSelectedTaskId(taskId);
@@ -35,7 +40,7 @@ const handleTaskDeleted = async () => {
           {isLoading ? (
             <SMainLoading $isDark={isDark}>Данные загружаются</SMainLoading>
           ) : (
-            <Column tasks={tasks} onClick={handleTaskClick}  />
+            <Column tasks={tasks} onClick={handleTaskClick} onCardDragStart={handleCardDragStart}/>
           )}
         </SMainBlock>
       </SContainer>

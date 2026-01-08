@@ -134,7 +134,7 @@ const handleSave = async () => {
                     </div>
                   ) : (
                     <SPopBrowseStatusTheme $isDark={isDark} className=" _gray">
-                    <p $isDark={isDark} className="_gray">{task.status}</p>
+                    <p className="_gray">{task.status}</p>
                   </SPopBrowseStatusTheme>
                   )}
                   </SPopBrowseStatusThemes>
@@ -170,16 +170,16 @@ const handleSave = async () => {
                 </SPopBrowseCalendar>
                 </SPopBrowseWrap>
                 <PopBrowseContainer $isDark={isDark}>
-                  <div className="btn-group" $isDark={isDark}>
+                  <div className="btn-group" >
                     {isEditing ? (
                     <>
-                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleSave}>Сохранить</button>
-                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleCancel}>Отмена</button>
+                      <button className="_btn-bor _hover03" onClick={handleSave}>Сохранить</button>
+                      <button className="_btn-bor _hover03" onClick={handleCancel}>Отмена</button>
                     </>
                     ) : (
-                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleEdit}>Редактировать задачу</button>
+                      <button className="_btn-bor _hover03" onClick={handleEdit}>Редактировать задачу</button>
                     )}
-                      <button $isDark={isDark} className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
+                      <button className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
                   </div>
                   <button className="close-button" onClick={handleClose}>
                     <a>Закрыть</a>
