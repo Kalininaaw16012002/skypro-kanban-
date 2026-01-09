@@ -1,47 +1,80 @@
 import { useTheme } from "styled-components";
-import { SCardsBtn, SCardsCard, SCardsContent, SCardsDate, SCardsDateSvg, SCardsDateText, SCardsGroup, SCardsItem, SCardsPoint, SCardsText, SCardsTheme, SCardsTitle } from "./Card.styled";
+import {
+  SCardsBtn,
+  SCardsCard,
+  SCardsContent,
+  SCardsDate,
+  SCardsDateSvg,
+  SCardsDateText,
+  SCardsGroup,
+  SCardsItem,
+  SCardsPoint,
+  SCardsText,
+  SCardsTheme,
+  SCardsTitle,
+} from "./Card.styled";
 import { Link, useNavigate } from "react-router-dom";
+import { CardSkeleton } from "./CardSceleton";
+
 
 const formatDate = (dateStr) => {
   const dateObj = new Date(dateStr);
-  const day = String(dateObj.getDate()).padStart(2, '0');
-  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
   const year = String(dateObj.getFullYear()).slice(-2);
   return `${day}.${month}.${year}`;
 };
 
 const categoryClassNames = {
-  'Web Design': '_orange',    
-  'Research': '_green',
-  'Copywriting': '_purple',
+  "Web Design": "_orange",
+  Research: "_green",
+  Copywriting: "_purple",
 };
 
-export const Card = ({ id,title, date, topic, onClick, onDragStart}) => {
-    const { isDark, toggleTheme } = useTheme();
-    const navigate = useNavigate();
+export const Card = ({ id, title, date, topic, onClick, onDragStart, loading }) => {
+  const { isDark, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   const handleNavigate = () => {
     navigate(`/edit-task/${id}`);
   };
 
+  const handleCardClick = (e) => {
+    if (e.currentTarget.draggable) {
+      e.stopPropagation();
+    }
+    if (onClick) {
+      onClick(id);
+    }
+  };
+
+  if (loading) {
+    return <CardSkeleton  $isDark={isDark}/>;
+  }
+
   return (
     <SCardsItem>
-      <SCardsCard $isDark={isDark} className="card" onClick={onClick} style={{ cursor: 'pointer' }} draggable={true}
+      <SCardsCard
+        $isDark={isDark}
+        className="card"
+        onClick={handleCardClick}
+        style={{ cursor: "pointer" }}
+        draggable={true}
         onDragStart={(e) => {
-    console.log("drag start for", id);
-    onDragStart(e, id);
-  }}>
+        onDragStart(e, id);
+        }}
+      >
         <SCardsGroup>
           {topic && (
             <SCardsTheme $isDark={isDark} className={categoryClassNames[topic]}>
-            <SCardsText>{topic}</SCardsText>
+              <SCardsText>{topic}</SCardsText>
             </SCardsTheme>
           )}
-            <SCardsBtn onClick={handleNavigate}>
-              <SCardsPoint></SCardsPoint>
-              <SCardsPoint></SCardsPoint>
-              <SCardsPoint></SCardsPoint>
-            </SCardsBtn>
+          <SCardsBtn onClick={handleNavigate}>
+            <SCardsPoint></SCardsPoint>
+            <SCardsPoint></SCardsPoint>
+            <SCardsPoint></SCardsPoint>
+          </SCardsBtn>
         </SCardsGroup>
         <SCardsContent>
           <Link target="_blank">
@@ -76,13 +109,14 @@ export const Card = ({ id,title, date, topic, onClick, onDragStart}) => {
                 </clipPath>
               </defs>
             </SCardsDateSvg>
-            <SCardsDateText>{date ? formatDate(date) : 'Дата не выбрана'}</SCardsDateText>
+            <SCardsDateText>
+              {date ? formatDate(date) : "Дата не выбрана"}
+            </SCardsDateText>
           </SCardsDate>
         </SCardsContent>
       </SCardsCard>
     </SCardsItem>
   );
 };
-
 
 export default Card;

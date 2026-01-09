@@ -1,13 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
-const gradientAnimation = keyframes`
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-`;
+import styled from "styled-components";
 
 export const SCardsItem = styled.div`
   position: relative;
@@ -125,13 +116,4 @@ export const SCardsDateText = styled.p`
   line-height: 13px;
   color: #94A6BE;
   letter-spacing: 0.2px;
-`;
-
-export const GradientDiv = styled.div`
-  width: 100%;
-  height: 64px; 
-  border-radius: 18px; /* закругление углов */
-  background: linear-gradient(90deg, rgba(193.26, 204.72, 220, 1), rgba(233.02, 237.53, 246.56, 1) 46%, rgba(193, 205, 220, 1));
-  background-size: 200% 100%;
-  animation: ${gradientAnimation} 1.5s infinite ease-in-out;
 `;

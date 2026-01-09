@@ -1,91 +1,102 @@
 import { useContext } from "react";
 import { TaskContext } from "../../context/TaskContext.js";
 import Card from "../Card/Card.jsx";
-import { SMainCards, SMainColumn, SMainColumnTitle, SMainColumnTitleText, SMainContent } from "../Column/Column.styled.js";
+import {
+  SMainCards,
+  SMainColumn,
+  SMainColumnTitle,
+  SMainColumnTitleText,
+  SMainContent,
+} from "../Column/Column.styled.js";
+import { CardSkeleton } from "../Card/CardSceleton.jsx";
+import { useTheme } from "styled-components";
 
-const Column = ({ tasks, onTaskClick, onCardDragStart }) => {
+const STATUSES = [
+  "Без статуса",
+  "Нужно сделать",
+  "В работе",
+  "Тестирование",
+  "Готово",
+];
+
+const Column = ({ tasks, onTaskClick, onCardDragStart, loading }) => {
   const { updateTaskInState } = useContext(TaskContext);
+    const { isDark, toggleTheme } = useTheme();
+
+    const hasAnyTasks = tasks.length > 0;
 
   const getCardsByStatus = (status) => {
-    return tasks.filter(task => task.status === status);
+    return tasks.filter((task) => task.status === status);
   };
 
-const handleDrop = (e, newStatus) => {
-  const taskId = e.dataTransfer.getData('text/plain');
-  console.log('Dropped task ID:', taskId);
-  console.log('to', newStatus);
-  const task = tasks.find(t => t._id === taskId);
-  if (task && task.status !== newStatus) {
-    updateTask(task._id, { ...task, status: newStatus });
-  }
-};
+  const handleDrop = (e, newStatus) => {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData("text/plain");
+    if (!taskId) {
+      return;
+    }
+    const task = tasks.find((t) => t._id === taskId);
+    if (task && task.status !== newStatus) {
+      updateTaskInState({ ...task, status: newStatus });
+    }
+  };
 
   const handleDragOver = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
   };
 
+  const skeletonCountPerColumn = 1;
+
+  if (!loading && !hasAnyTasks) {
+    return (
+      <SMainContent>
+        <div style={{ padding: "20px", textAlign: "center", color: isDark ? "#fff" : "#000" }}>
+          Новых задач нет
+        </div>
+      </SMainContent>
+    );
+  }
 
   return (
     <SMainContent>
-      <SMainColumn className="column" onDrop={(e) => handleDrop(e, "Без статуса")}
-        onDragOver={handleDragOver}>
-        <SMainColumnTitle>
-          <SMainColumnTitleText>Без статуса</SMainColumnTitleText>
-        </SMainColumnTitle>
-        <SMainCards>
-          {getCardsByStatus("Без статуса").map(task => (
-            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} onDragStart={(e, id) => onCardDragStart(e, id)}/>
-          ))}
-        </SMainCards>
-      </SMainColumn>
+      {STATUSES.map((status) => {
+        const tasksInStatus = getCardsByStatus(status);
+        const hasTasks = tasksInStatus.length > 0;
 
-      <SMainColumn className="column" onDrop={(e) => handleDrop(e, "Нужно сделать")}
-        onDragOver={handleDragOver}>
-        <SMainColumnTitle>
-          <SMainColumnTitleText>Нужно сделать</SMainColumnTitleText>
-        </SMainColumnTitle>
-        <SMainCards>
-          {getCardsByStatus("Нужно сделать").map(task => (
-            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} onDragStart={(e, id) => onCardDragStart(e, id)}/>
-          ))}
-        </SMainCards>
-      </SMainColumn>
-
-      <SMainColumn className="column" onDrop={(e) => handleDrop(e, "В работе")}
-        onDragOver={handleDragOver}>
-        <SMainColumnTitle>
-          <SMainColumnTitleText>В работе</SMainColumnTitleText>
-        </SMainColumnTitle>
-        <SMainCards>
-          {getCardsByStatus("В работе").map(task => (
-            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} onDragStart={(e, id) => onCardDragStart(e, id)}/>
-          ))}
-        </SMainCards>
-      </SMainColumn>
-
-      <SMainColumn onDrop={(e) => handleDrop(e, "Тестирование")}
-        onDragOver={handleDragOver}>
-        <SMainColumnTitle>
-          <SMainColumnTitleText>Тестирование</SMainColumnTitleText>
-        </SMainColumnTitle>
-        <SMainCards>
-          {getCardsByStatus("Тестирование").map(task => (
-            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} onDragStart={(e, id) => onCardDragStart(e, id)}/>
-          ))}
-        </SMainCards>
-      </SMainColumn>
-
-      <SMainColumn onDrop={(e) => handleDrop(e, "Готово")}
-        onDragOver={handleDragOver}>
-        <SMainColumnTitle>
-          <SMainColumnTitleText>Готово</SMainColumnTitleText>
-        </SMainColumnTitle>
-        <SMainCards>
-          {getCardsByStatus("Готово").map(task => (
-            <Card key={task._id} id={task._id} {...task} onClick={onTaskClick} onDragStart={(e, id) => onCardDragStart(e, id)}/>
-          ))}
-        </SMainCards>
-      </SMainColumn>
+        return (
+          <SMainColumn
+            key={status}
+            className="column"
+            onDrop={(e) => handleDrop(e, status)}
+            onDragOver={handleDragOver}
+          >
+            <SMainColumnTitle>
+              <SMainColumnTitleText>{status}</SMainColumnTitleText>
+            </SMainColumnTitle>
+            <SMainCards>
+              {loading ? (
+                Array.from({ length: skeletonCountPerColumn }).map((_, index) => (
+                  <CardSkeleton $isDark={isDark} key={index} />
+                ))
+              ) : hasTasks ? (
+                tasksInStatus.map((task) => (
+                  <Card
+                    key={task._id}
+                    id={task._id}
+                    title={task.title}
+                    date={task.date}
+                    topic={task.topic}
+                    onClick={onTaskClick}
+                    onDragStart={onCardDragStart}
+                  />
+                ))
+              ) : (
+                null
+              )}
+            </SMainCards>
+          </SMainColumn>
+        );
+      })}
     </SMainContent>
   );
 };

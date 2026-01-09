@@ -27,8 +27,6 @@ export const fetchTaskById = async (id) => {
 
   const idToUse = typeof id === 'string' ? id : id?.id; 
 
-  console.log('Используемый id:', idToUse, 'Тип:', typeof idToUse);
-
   const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${idToUse}`, {
     headers: getAuthHeaders()
   });
@@ -94,7 +92,6 @@ export async function deleteTask(id) {
     const response = await axios.delete(`${API_URL}/${id}`, {
       headers: getAuthHeaders(),
     });
-    console.log('Удаление прошло успешно:', response.data);
     return response.data.tasks;
   } catch (error) {
     console.error('Ошибка при удалении задачи:', error);

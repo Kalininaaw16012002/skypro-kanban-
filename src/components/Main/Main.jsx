@@ -15,7 +15,6 @@ export const Main = () => {
   const { isDark, toggleTheme } = useTheme();
 
 const handleCardDragStart = (e, id) => {
-  console.log("drag start event", id);
   e.dataTransfer.setData('text/plain', id);
 };
 
@@ -37,11 +36,11 @@ const handleTaskDeleted = async () => {
     <SMain $isDark={isDark}>
       <SContainer>
         <SMainBlock>
-          {isLoading ? (
+          {/* {isLoading ? (
             <SMainLoading $isDark={isDark}>Данные загружаются</SMainLoading>
-          ) : (
-            <Column tasks={tasks} onClick={handleTaskClick} onCardDragStart={handleCardDragStart}/>
-          )}
+          ) : ( */}
+            <Column tasks={tasks} onClick={handleTaskClick} onCardDragStart={handleCardDragStart} loading={isLoading}/>
+          {/* )} */}
         </SMainBlock>
       </SContainer>
 

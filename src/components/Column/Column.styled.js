@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SMainContent = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
 
   @media screen and (max-width: 1200px) {
     display: block;
@@ -45,4 +46,3 @@ export const SMainCards = styled.div`
     overflow-y: auto;
   }
 `;
-
