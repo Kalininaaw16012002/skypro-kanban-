@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Calendar from "../Calendar/Calendar.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { deleteTask, updateTask } from "../../services/api.js";
 import { TaskContext } from "../../context/TaskContext.js";
-import { SPopBrowse, SPopBrowseBlock, SPopBrowseContainer, SPopBrowseContent, SPopBrowseTopBlock, SPopBrowseTtl } from "./PopBrowse.styled.js";
+import { PopBrowseContainer, SPopBrowse, SPopBrowseBlock, SPopBrowseCalendar, SPopBrowseContainer, SPopBrowseContent, SPopBrowseForm, SPopBrowseFormArea, SPopBrowseFormBlock, SPopBrowseFormCalendarttl, SPopBrowseFormSubttl, SPopBrowseStatus, SPopBrowseStatusTheme, SPopBrowseStatusThemes, SPopBrowseStatusTtl, SPopBrowseTopBlock, SPopBrowseTtl, SPopBrowseWrap } from "./PopBrowse.styled.js";
+import { useTheme } from "styled-components";
 
     const categories = [
   { name: 'Web Design', className: '_orange' },
@@ -12,9 +13,10 @@ import { SPopBrowse, SPopBrowseBlock, SPopBrowseContainer, SPopBrowseContent, SP
 ];
 
   const PopBrowse = ({ taskId, onClose, onTaskDeleted }) => {
+    const { isDark, toggleTheme } = useTheme();
     const { tasks, deleteTaskFromState, updateTaskInState } = useContext(TaskContext);
     const [task, setTask] = useState(null);
-    const [originalTask, setOriginalTask] = useState(null); // для отмены
+    const [originalTask, setOriginalTask] = useState(null); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [isEditing, setIsEditing] = useState(false);
@@ -55,7 +57,6 @@ useEffect(() => {
     }
   };
 
-    // Обработчик закрытия — возвращает на страницу
     const handleClose = () => {
       navigate(-1);
     };
@@ -98,18 +99,18 @@ const handleSave = async () => {
       return (
         <SPopBrowse id="popBrowse">
           <SPopBrowseContainer>
-            <SPopBrowseBlock>
+            <SPopBrowseBlock $isDark={isDark}>
               <SPopBrowseContent>
                 <SPopBrowseTopBlock>
-                  <SPopBrowseTtl>{task.title}</SPopBrowseTtl>
+                  <SPopBrowseTtl $isDark={isDark}>{task.title}</SPopBrowseTtl>
                   <div className={`categories__theme theme-top ${categoryClass} _active-category`}>
                   <p className={categoryClass}>{task.topic || 'Без названия'}</p>
                   </div>
                   </SPopBrowseTopBlock>
                 </SPopBrowseContent>
-                <div className="pop-browse__status status">
-                  <p className="status__p subttl">Статус</p>
-                  <div className="status__themes">
+                <SPopBrowseStatus>
+                  <SPopBrowseStatusTtl $isDark={isDark}>Статус</SPopBrowseStatusTtl>
+                  <SPopBrowseStatusThemes $isDark={isDark}>
                     {isEditing ? (
                     <div className="status__themes status__themes--inline">
                       {[
@@ -119,7 +120,7 @@ const handleSave = async () => {
                         'Тестирование',
                         'Готово'
                       ].map((statusOption) => (
-                        <button
+                        <button 
                           key={statusOption}
                           type="button"
                           className={`status__theme ${
@@ -132,62 +133,58 @@ const handleSave = async () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="status__theme _gray">
+                    <SPopBrowseStatusTheme $isDark={isDark} className=" _gray">
                     <p className="_gray">{task.status}</p>
-                  </div>
+                  </SPopBrowseStatusTheme>
                   )}
-                  </div>
-                </div>
-                <div className="pop-browse__wrap">
-                  <form className="pop-browse__form form-browse" id="formBrowseCard" action="#">
-                    <div className="form-browse__block">
-                      <label htmlFor="textArea01" className="subttl">Описание задачи</label>
+                  </SPopBrowseStatusThemes>
+                </SPopBrowseStatus>
+                <SPopBrowseWrap>
+                  <SPopBrowseForm id="formBrowseCard" action="#">
+                    <SPopBrowseFormBlock>
+                      <SPopBrowseFormSubttl $isDark={isDark} htmlFor="textArea01">Описание задачи</SPopBrowseFormSubttl>
                       {isEditing ? (
-                      <textarea
-                        className="form-browse__area"
+                      <SPopBrowseFormArea $isDark={isDark}
                         name="text"
                         id="textArea01"
                         value={task.description}
                         onChange={(e) => handleChange('description', e.target.value)}
                       />
                     ) : (
-                      <textarea
-                        className="form-browse__area"
+                      <SPopBrowseFormArea $isDark={isDark}
                         name="text"
                         id="textArea01"
                         readOnly
                         value={task.description || ''}
                       />
                     )}
-                    </div>
-                  </form>
-                  <div className="pop-new-card__calendar calendar">
-                  <p className="calendar__ttl subttl">Даты</p>
+                    </SPopBrowseFormBlock>
+                  </SPopBrowseForm>
+                  <SPopBrowseCalendar className="pop-new-card__calendar calendar">
+                  <SPopBrowseFormCalendarttl $isDark={isDark}>Даты</SPopBrowseFormCalendarttl>
                                     <Calendar
                     editable={isEditing}
                     date={selectedDate}
                     onChange={(newDate) => setSelectedDate(newDate)}
                   />
-                </div>
-                </div>
-                <div className="pop-browse__btn-browse ">
-                  <div className="btn-group">
+                </SPopBrowseCalendar>
+                </SPopBrowseWrap>
+                <PopBrowseContainer $isDark={isDark}>
+                  <div className="btn-group" >
                     {isEditing ? (
                     <>
-                      <button className="btn-browse__save _btn-bor _hover03" onClick={handleSave}>Сохранить</button>
-                      <button className="btn-browse__cancel _btn-bor _hover03" onClick={handleCancel}>Отмена</button>
+                      <button className="_btn-bor _hover03" onClick={handleSave}>Сохранить</button>
+                      <button className="_btn-bor _hover03" onClick={handleCancel}>Отмена</button>
                     </>
-                  ) : (
-                    <button className="btn-browse__edit _btn-bor _hover03" onClick={handleEdit}>Редактировать задачу</button>
-                  )}
-                    <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>
-                      Удалить задачу
-                    </button>
+                    ) : (
+                      <button className="_btn-bor _hover03" onClick={handleEdit}>Редактировать задачу</button>
+                    )}
+                      <button className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
                   </div>
-                  <button className="btn-browse__close _btn-bg _hover01" onClick={handleClose}>
-                    <Link>Закрыть</Link>
+                  <button className="close-button" onClick={handleClose}>
+                    <a>Закрыть</a>
                   </button>
-                </div>
+                </PopBrowseContainer>
               </SPopBrowseBlock>
             </SPopBrowseContainer>
           </SPopBrowse>

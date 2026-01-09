@@ -9,7 +9,7 @@ const SignIn = ({ setIsAuth, onAuthSuccess }) => {
     if (onAuthSuccess) {
       await onAuthSuccess();
     }
-    navigate("/"); // перенаправление после авторизации
+    navigate("/"); 
   };
 
   return <AuthForm setIsAuth={setIsAuth} isSignUp={false} onAuthSuccess={handleAuthSuccess} />;

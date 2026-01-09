@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from '../pages/MainPage';
 import EditTaskPage from '../pages/EditTaskPage';
 import AddTaskPage from '../pages/AddTaskPage';
-import NotFound from '../pages/NotFound';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import PrivateRoute from './PrivateRoute';
@@ -10,6 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import ExitPage from '../pages/ExitPage';
 import { TaskContext } from '../context/TaskContext';
 import { AuthContext } from '../context/AuthContext';
+import NotFound from '../pages/NotFound/NotFound';
 
 
 function AppRoutes() {

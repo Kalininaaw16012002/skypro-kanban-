@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SHeader = styled.header `
   width: 100%;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background-color: ${({ $isDark }) => ($isDark ? "#20202C" : "#FFF")};
 `;
 
 export const SContainer = styled.div `
@@ -31,15 +31,25 @@ export const SHeaderBlock = styled.div `
 `;
 
 export const SHeaderLogo = styled.div`
-  &._show._light img {
+  display: ${(props) => (props.$isLight ? 'block' : 'none')};
+  
+  img {
     width: 85px;
   }
 `;
 
 export const SHeaderLogoDark = styled.div`
-  &._dark img {
+  display: ${(props) => (props.$isDark ? 'block' : 'none')};
+  
+  img {
     width: 85px;
   }
+`;
+
+export const StyledImage = styled.img`
+  max-width: 100%;
+  height: auto;
+  display: block;
 `;
 
 export const SHeaderNav = styled.nav `
@@ -90,7 +100,7 @@ export const SHeaderUser = styled.div`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: #565EEF;
+  color: ${({ $isDark }) => ($isDark ? "#FFF" : "#565EEF")};
   cursor: pointer;
 
   &._hover02:hover:hover {
@@ -117,8 +127,8 @@ export const SHeaderUser = styled.div`
     width: 6px;
     height: 6px;
     border-radius: 1px;
-    border-left: 1.9px solid #565EEF;
-    border-bottom: 1.9px solid #565EEF;
+    border-left: 1.9px solid ${({ $isDark }) => ($isDark ? "#FFF" : "#565EEF")};
+    border-bottom: 1.9px solid ${({ $isDark }) => ($isDark ? "#FFF" : "#565EEF")};
     transform: rotate(-45deg);
     margin: -6px 0 0 5px;
   }

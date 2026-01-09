@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { checkLs } from "../utils/checkLs";
 
-// В виде пропса children
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
@@ -24,7 +22,6 @@ const AuthProvider = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  // Обновляем данные о пользователе и сохраняем в localStorage
   const updateUserInfo = (userData) => {
     if (userData) {
       setUser(userData);
@@ -51,12 +48,9 @@ const AuthProvider = ({ children }) => {
     setIsAuth(false);
   };
 
-  // Пока идет загрузка, можно показывать null или спиннер
   if (isLoading) {
-    return null; // или любой компонент-заглушка
+    return null; 
   }
-   // В сам провайдер нужно обязательно прокинуть те значения,
-   // которые мы хотим использовать в разных частях приложения
    return (
       <AuthContext.Provider value={{ user, setUser, login, logout, updateUserInfo, isAuth, setIsAuth }}>
          {children}

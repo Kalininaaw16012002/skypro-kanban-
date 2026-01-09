@@ -11,6 +11,10 @@ export const SCalendarNav = styled.div`
   justify-content: space-between;
   margin-top: 14px;
   padding: 0 7px;
+
+  @media screen and (max-width: 660px) {
+      padding: 0;
+  }
 `;
 
 export const SCalendarMonth = styled.div`
@@ -121,6 +125,10 @@ export const SCalendarCell = styled.div`
 
 export const SCalendarPeriod = styled.div`
   padding: 0 7px;
+
+  @media screen and (max-width: 660px) {
+      padding: 0;
+  }
 `;
 
 export const SCalendarDateEnd = styled.p`
@@ -130,5 +138,5 @@ export const SCalendarDateEnd = styled.p`
 `;
 
 export const SCalendarDateControl = styled.span`
-  color: #000000;
+ color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )}
 `;

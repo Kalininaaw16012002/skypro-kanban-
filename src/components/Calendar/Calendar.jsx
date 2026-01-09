@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { SCalendarBlock, SCalendarCell, SCalendarCells, SCalendarContent, SCalendarDateControl, SCalendarDateEnd, SCalendarDaysName, SCalendarDaysNames, SCalendarMonth, SCalendarNav, SCalendarNavAction, SCalendarNavActions, SCalendarNavActionSvg, SCalendarPeriod } from "./Calendar.styled";
+import { useTheme } from "styled-components";
 
 const Calendar = ({ date, onChange }) => {
+  const { isDark, toggleTheme } = useTheme();
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(() => {
     const initialDate = date ? new Date(date) : new Date();
@@ -18,17 +20,15 @@ const Calendar = ({ date, onChange }) => {
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayWeekday = new Date(currentYear, currentMonth, 1).getDay();
-  const startOffset = (firstDayWeekday + 6) % 7; // Понедельник = 0
+  const startOffset = (firstDayWeekday + 6) % 7; 
 
   const generateCalendarDays = () => {
     const days = [];
 
-    // Пустые ячейки для начала месяца
     for (let i = 0; i < startOffset; i++) {
       days.push(null);
     }
 
-    // Дни текущего месяца
     for (let d = 1; d <= daysInMonth; d++) {
       days.push(d);
     }
@@ -137,7 +137,7 @@ const Calendar = ({ date, onChange }) => {
       <SCalendarPeriod>
         <SCalendarDateEnd>
           Срок исполнения:{" "}
-          <SCalendarDateControl>
+          <SCalendarDateControl $isDark={isDark}>
             {`${String(activeDay).padStart(2, "0")}.${String(currentMonth + 1).padStart(2, "0")}.${currentYear}`}
           </SCalendarDateControl>
         </SCalendarDateEnd>

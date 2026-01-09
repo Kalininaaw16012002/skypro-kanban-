@@ -7,7 +7,7 @@ export const TaskProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadTasks = async () => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     if (token) {
       fetchTasks()
         .then((data) => {
@@ -19,21 +19,23 @@ export const TaskProvider = ({ children }) => {
           setIsLoading(false);
         });
     } else {
-      console.warn('Токен не найден');
+      console.warn("Токен не найден");
       setIsLoading(false);
     }
   };
 
   const addTask = (taskData) => {
-    setTasks(prev => [...prev, taskData]);
+    setTasks((prev) => [...prev, taskData]);
   };
 
   const updateTaskInState = (updatedTask) => {
-    setTasks(prev => prev.map(task => (task._id === updatedTask._id ? updatedTask : task)));
+    setTasks((prev) =>
+      prev.map((task) => (task._id === updatedTask._id ? updatedTask : task))
+    );
   };
 
   const deleteTaskFromState = (taskId) => {
-    setTasks(prev => prev.filter(task => task._id !== taskId));
+    setTasks((prev) => prev.filter((task) => task._id !== taskId));
   };
 
   return (

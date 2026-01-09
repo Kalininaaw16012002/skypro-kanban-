@@ -8,9 +8,9 @@ export const SPopUserSet = styled.div`
   width: 213px;
   height: 205px;
   border-radius: 10px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background: #FFF;
-  box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
+  border: 0.7px solid ${({ $isDark }) => ($isDark ? "#4E5566" : "rgba(148, 166, 190, 0.4)")};
+  background: ${({ $isDark }) => ($isDark ? "#202229" : "#FFF")};
+  box-shadow: 0px 10px 39px 0px ${({ $isDark }) => ($isDark ? "rgba(148, 166, 190, 0.4)": "rgba(26, 56, 101, 0.21)" )};
   padding: 34px;
   text-align: center;
   z-index: 2;
@@ -21,7 +21,7 @@ export const SPopUserSet = styled.div`
 `;
 
 export const SPopUserSetName = styled.p`
-  color: #000;
+  color: ${({ $isDark }) => ($isDark ? "#FFF": "#202229" )};
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -45,7 +45,7 @@ export const SPopUserSetTheme = styled.div`
 `;
 
 export const SPopUserSetThemeText = styled.p`
-  color: #000;
+  color: ${({ $isDark }) => ($isDark ? "#FFF": "#202229" )};
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.14px;
@@ -57,7 +57,7 @@ export const SPopUserCheckbox = styled.input.attrs({ type: 'checkbox' })`
   height: 13px;
   border-radius: 100px;
   background: #eaeef6;
-  outline: none;
+  outline: none;  
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -70,7 +70,7 @@ export const SPopUserCheckbox = styled.input.attrs({ type: 'checkbox' })`
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background-color: #94a6be;
+    background-color: ${({ $isDark }) => ($isDark ? "rgba(86, 94, 239, 1)" : " rgba(148, 166, 190, 1)" )};
     transition: 0.5s;
   }
 
@@ -83,18 +83,19 @@ export const SPopUserButton = styled.button`
   width: 72px;
   height: 30px;
   background: transparent;
-  color: #565EEF;
+  color: ${({ $isDark }) => ($isDark ? "#fff": "#565EEF" )};
   border-radius: 4px;
-  border: 1px solid #565EEF;
+  border: 1px solid ${({ $isDark }) => ($isDark ? "#fff": "#565EEF" )};
 
   &._hover03:hover {
   color: #FFFFFF;
   background-color: #33399b;
+  border: #33399b;
 }
 `;
 
 export const SPopUserButtonDirect = styled.a`
-  color: #565EEF; 
+  color: ${({ $isDark }) => ($isDark ? "#fff": "#565EEF" )};
 
   &:hover {
     color: #FFFFFF;
@@ -128,12 +129,12 @@ export const SPopExitContainer = styled.div`
 export const SPopExitBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background-color: ${({ $isDark }) => ($isDark ? "rgba(32, 32, 44, 1)":"#fff" )};
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
+  border: 0.7px solid ${({ $isDark }) => ($isDark ? "rgba(78, 85, 102, 1)":"#fff" )};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media only screen and (max-width: 375px) {
@@ -148,6 +149,7 @@ export const SPopExitTtl = styled.h2`
   line-height: 30px;
   letter-spacing: -0.4px;
   margin-bottom: 20px;
+  color: ${({ $isDark }) => ($isDark ? "#fff": "#000")};
 `;
 
 export const SPopExitFormGroup = styled.div`
@@ -164,7 +166,7 @@ export const SPopExitFormGroup = styled.div`
 export const SPopExitYes = styled.button`
   width: 153px;
   height: 30px;
-  background-color: #565EEF;
+  background-color: ${({ $isDark }) => ($isDark ? "#fff": "#565EEF" )};
   border-radius: 4px;
   border: none;
   outline: none;
@@ -204,7 +206,7 @@ export const SPopExitNo = styled.button`
   height: 30px;
   background-color: transparent;
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, #565EEF);
+  border: 0.7px solid var(--palette-navy-60, ${({ $isDark }) => ($isDark ? "#fff": "#565EEF" )});
   outline: none;
   display: flex;
   align-items: center;
@@ -231,7 +233,7 @@ export const SPopExitNo = styled.button`
 export const SPopExitNoA = styled.a`
   width: 100%;
   height: 100%;
-  color: #565EEF;
+  color: ${({ $isDark }) => ($isDark ? "#fff": "#565EEF" )};
   display: flex;
   align-items: center;
   justify-content: center;
