@@ -193,7 +193,7 @@ export const SPopNewCardFormCreate = styled.button`
 
     &._hover01:hover {
     background-color: #33399b;
-}
+  }
 
     @media screen and (max-width: 495px) {
       width: 100%;

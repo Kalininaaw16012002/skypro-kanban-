@@ -1,5 +1,5 @@
 import Calendar from "../Calendar/Calendar.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addTask } from "../../services/api.js";
 import { SPopNewCard, SPopNewCardBlock, SPopNewCardCalendar, SPopNewCardCategories, SPopNewCardClose, SPopNewCardContainer, SPopNewCardContent, SPopNewCardForm, SPopNewCardFormArea, SPopNewCardFormBlock, SPopNewCardFormCalendarttl, SPopNewCardFormCategoriesttl, SPopNewCardFormCreate, SPopNewCardFormInput, SPopNewCardFormSubttl, SPopNewCardTtl, SPopNewCardWrap } from "./PopNewCard.styled.js";
 import { useTheme } from "styled-components";
@@ -11,14 +11,23 @@ const categories = [
 ];
 
 
-const PopNewCard = ({ onClose, onRefreshTasks }) => {
-  const { isDark, toggleTheme } = useTheme();
+const PopNewCard = ({ onClose, onRefreshTasks}) => {
+  const { isDark } = useTheme();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Research'); 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
 const handleCreate = async () => {
+  setIsButtonDisabled(true);
   const taskData = {
     title: title.trim() || 'Новая задача',
     topic: category || 'Research',
@@ -33,6 +42,7 @@ const handleCreate = async () => {
     onClose();
   } catch (err) {
     alert(err.message);
+    setIsButtonDisabled(false);
   }
 };
 
@@ -98,7 +108,7 @@ const handleCreate = async () => {
           </div>
         ))}
             </SPopNewCardCategories>
-            <SPopNewCardFormCreate className=" _hover01" id="btnCreate" onClick={handleCreate}>
+            <SPopNewCardFormCreate className=" _hover01" id="btnCreate" onClick={handleCreate} disabled={isButtonDisabled}>
               Создать задачу
             </SPopNewCardFormCreate>
           </SPopNewCardContent>

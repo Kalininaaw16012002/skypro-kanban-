@@ -12,7 +12,7 @@ export const Main = () => {
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, loadTasks, isLoading } = useContext(TaskContext);
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark } = useTheme();
 
 const handleCardDragStart = (e, id) => {
   e.dataTransfer.setData('text/plain', id);
@@ -36,11 +36,7 @@ const handleTaskDeleted = async () => {
     <SMain $isDark={isDark}>
       <SContainer>
         <SMainBlock>
-          {/* {isLoading ? (
-            <SMainLoading $isDark={isDark}>Данные загружаются</SMainLoading>
-          ) : ( */}
             <Column tasks={tasks} onClick={handleTaskClick} onCardDragStart={handleCardDragStart} loading={isLoading}/>
-          {/* )} */}
         </SMainBlock>
       </SContainer>
 

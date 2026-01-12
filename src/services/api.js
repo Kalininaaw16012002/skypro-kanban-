@@ -18,32 +18,6 @@ export async function fetchTasks() {
     throw new Error('Ошибка при получении задач');
   }}
 
-// Получить задачу по id
-export const fetchTaskById = async (id) => {
-  if (!id) {
-    console.error('ID задачи не передан');
-    return;
-  }
-
-  const idToUse = typeof id === 'string' ? id : id?.id; 
-
-  const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${idToUse}`, {
-    headers: getAuthHeaders()
-  });
-
-  if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error('Задача не найдена');
-    } else if (response.status === 401) {
-      throw new Error('Не авторизован. Проверьте токен');
-    }
-    throw new Error('Ошибка загрузки задачи');
-  }
-
-  const data = await response.json();
-  return data.task;
-};
-
 // Добавить новую задачу
 export async function addTask(taskData) {
   const data = {

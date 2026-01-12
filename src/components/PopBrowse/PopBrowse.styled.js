@@ -324,7 +324,7 @@ export const PopBrowseContainer = styled.div`
 
     &._hover03:hover {
       background-color: rgba(86, 94, 239, 1);
-      color: ${({ $isDark }) => ($isDark ?"#FFF":  "#565EEF" )};
+      color: ${({ $isDark }) => ($isDark ?"#FFF":  "#FFF" )};
       border: 0.7px solid var(--palette-navy-60, "#565EEF");
     }
   }

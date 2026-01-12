@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext.js";
 import { useTheme } from "../../context/ThemeContext.jsx";
 
 const Header = () => {
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark } = useTheme();
   const [showPopUser, setShowPopUser] = useState(false);
   const [showPopNewCard, setShowPopNewCard] = useState(false);
   const { user } = useContext(AuthContext);
