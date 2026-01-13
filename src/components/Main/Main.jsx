@@ -1,15 +1,22 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Column from "../Column/Column.jsx";
 import { SMain, SMainBlock, SMainLoading } from "../Main/Main.styled.js";
 import { SContainer } from "../Header/Header.styled.js";
 import PopBrowse from "../PopBrowse/PopBrowse.jsx";
 import { TaskContext } from "../../context/TaskContext.js";
+import { useTheme } from "styled-components";
+
 
 
 export const Main = () => {
   const [isPopBrowseOpen, setPopBrowseOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, loadTasks, isLoading } = useContext(TaskContext);
+  const { isDark } = useTheme();
+
+const handleCardDragStart = (e, id) => {
+  e.dataTransfer.setData('text/plain', id);
+};
 
   const handleTaskClick = (taskId) => {
     setSelectedTaskId(taskId);
@@ -26,14 +33,10 @@ const handleTaskDeleted = async () => {
 };
 
   return (
-    <SMain>
+    <SMain $isDark={isDark}>
       <SContainer>
         <SMainBlock>
-          {isLoading ? (
-            <SMainLoading>Данные загружаются</SMainLoading>
-          ) : (
-            <Column tasks={tasks} onClick={handleTaskClick}  />
-          )}
+            <Column tasks={tasks} onClick={handleTaskClick} onCardDragStart={handleCardDragStart} loading={isLoading}/>
         </SMainBlock>
       </SContainer>
 

@@ -29,11 +29,12 @@ export const SCardsCard = styled.div`
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
+  background: ${({ $isDark }) => ($isDark ? "rgba(32, 32, 44, 1)":"#FFF")};
 
   @media screen and (max-width: 1200px) {
     width: 220px;
     height: 130px;
-    background-color: #FFFFFF;
+    background: ${({ $isDark }) => ($isDark ? "rgba(32, 32, 44, 1)":"#FFF")};
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -96,6 +97,7 @@ export const SCardsTitle = styled.h3`
   line-height: 18px;
   color: #000000;
   margin-bottom: 10px;
+  color: ${({ $isDark }) => ($isDark ? "#FFF": "#000" )};
 `;
 
 export const SCardsDate = styled.div`

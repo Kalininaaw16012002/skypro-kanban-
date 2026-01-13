@@ -1,4 +1,3 @@
-import '../App.css';
 import Main from '../components/Main/Main.jsx'
 import Header from '../components/Header/Header.jsx'
 import { SWrapper } from '../App.styled.js'
